@@ -36,7 +36,6 @@ int main(void)
 		// RESET - 버튼 눌림이 감지되면 ( 3, 6 )
 		if(get_button(BUTTON3, BUTTON3PIN))
 		{
-			led_all_off();
 			button_cnt = 0;			
 		}
 		
@@ -44,22 +43,23 @@ int main(void)
 		if(get_button(BUTTON1, BUTTON1PIN))
 		{
 			button_cnt ++;
-			switch(button_cnt)
-			{
-				case 0:
-				led_all_off();
-				break;
-				case 1:
-				led_odd_on();
-				break;
-				case 2:
-				led_even_on();
-				break;
-				case 3:
-				led_all_on();
-				button_cnt = -1;
-				break;
-			}
+			// button_cnt % 4;
+		}
+		switch(button_cnt)
+		{
+			case 0:
+			led_all_off();
+			break;
+			case 1:
+			led_odd_on();
+			break;
+			case 2:
+			led_even_on();
+			break;
+			case 3:
+			led_all_on();
+			button_cnt = -1;
+			break;
 		}
 	}
 	return 0;
@@ -82,29 +82,28 @@ int main(void)
 		// RESET - 버튼 눌림이 감지되면 ( 3, 6 )
 		if(get_button(BUTTON3, BUTTON3PIN))
 		{
-			led_all_off();
 			button_cnt = 0;
 		}		
 		// 버튼 눌림이 감지되면 ( 0, 3 )
 		if(get_button(BUTTON0, BUTTON0PIN))
 		{
 			button_cnt ++;
-			switch(button_cnt)
-			{
-				case 0:
-				led_all_off();
-				break;
-				case 1:
-				led_all_on();
-				break;
-				case 2:
-				led_right_on();
-				break;
-				case 3:
-				led_left_on();
-				button_cnt = -1;
-				break;
-			}
+		}
+		switch(button_cnt)
+		{
+			case 0:
+			led_all_off();
+			break;
+			case 1:
+			led_all_on();
+			break;
+			case 2:
+			led_right_on();
+			break;
+			case 3:
+			led_left_on();
+			button_cnt = -1;
+			break;
 		}
 	}
 	return 0;
