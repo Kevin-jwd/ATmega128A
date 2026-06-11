@@ -48,8 +48,9 @@ int get_button(int button_number, int button_pin)
 	else if(button_status[button_number] == BUTTON_PRESS &&
 	current_state == BUTTON_RELEASE) 
 	{
+		_delay_ms(15);             
 		button_status[button_number] = BUTTON_RELEASE;     // 다음 버튼 체크를 위한 초기화
-		_delay_ms(10);             
+		
 		return 1;                                          // 완전히 1번 눌렀다 뗀 상태로 인정
 	}
 	return 0;
