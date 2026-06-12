@@ -129,30 +129,24 @@ void led_flower_on(void)
 	static int i = 0;
 
 	*(unsigned char *) 0x3B |= 1 << (3-i) | 1 << (4+i);
-	i = (i + 1) % 4;      
 	
-	if(i == LED_NUMBER/2 - 1)
+	if(i == LED_NUMBER/2)
 	{
 		led_all_off();
+		_delay_ms(30);
 	}
-	
-	_delay_ms(30);
+	i = (i + 1) % 5;      
+	_delay_ms(50);
 }
 
 // ---- LED flower off ----
 void led_flower_off(void)
 {
 	static int i = 0;
-	
-	if(i == 0)
-	{
-		led_all_on();			
-		_delay_ms(30);
-	}
-	else
-	{
-		*(unsigned char *) 0x3B &= ~(1 << i | 1 << (7-i));	
-	}
+
+	led_all_on();			
+
+	*(unsigned char *) 0x3B &= ~(1 << i | 1 << (7-i));	
 	
 	i = (i + 1) % 5;      
 	

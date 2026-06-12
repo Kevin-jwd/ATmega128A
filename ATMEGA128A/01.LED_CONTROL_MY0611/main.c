@@ -39,8 +39,7 @@ int main(void)
 	{
 		if (get_button(BUTTON0, BUTTON0PIN))
 		{
-			if(button0_cnt == 7) button0_cnt = 0;
-			else	button0_cnt++;
+			button0_cnt++;
 		}
 		
 		switch(button0_cnt)
@@ -68,6 +67,7 @@ int main(void)
 			break;
 			case FLOWER_OFF :
 			led_flower_off();
+			button0_cnt = 0;
 			break;
 			default :
 			led_all_off();
