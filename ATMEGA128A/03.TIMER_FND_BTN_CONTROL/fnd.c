@@ -61,12 +61,6 @@ void min_sec_clock(void)
 			FND_DATA_PORT = numbers[min_count/10 % 6];
 			break;
 	}
-	if(ms_count == 0)
-	{
-		toggle_dot();
-	}
-
-	
 	digit_select = (digit_select + 1) % 4;   // 다음 표시할 자리수
 }
 
