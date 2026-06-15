@@ -11,7 +11,6 @@
 
 #define F_CPU 16000000UL
 #include <avr/io.h>
-#include <util/delay.h>
 
 #define FND_DATA_DDR DDRC
 #define FND_DATA_PORT PORTC

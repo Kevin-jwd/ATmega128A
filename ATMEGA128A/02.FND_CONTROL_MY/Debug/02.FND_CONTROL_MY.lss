@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 000000a8  00000000  00000000  0000088c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000f06  00000000  00000000  00000934  2**0
+  6 .debug_info   00000ee2  00000000  00000000  00000934  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000a56  00000000  00000000  0000183a  2**0
+  7 .debug_abbrev 00000a47  00000000  00000000  00001816  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000073f  00000000  00000000  00002290  2**0
+  8 .debug_line   00000740  00000000  00000000  0000225d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000110  00000000  00000000  000029d0  2**2
+  9 .debug_frame  00000110  00000000  00000000  000029a0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000005ec  00000000  00000000  00002ae0  2**0
+ 10 .debug_str    000005b3  00000000  00000000  00002ab0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000026f  00000000  00000000  000030cc  2**0
+ 11 .debug_loc    0000026f  00000000  00000000  00003063  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000078  00000000  00000000  0000333b  2**0
+ 12 .debug_ranges 00000078  00000000  00000000  000032d2  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -307,8 +307,8 @@ void min_sec_clock(void)
 	static int digit_select = 0;
 	
 	switch(digit_select)
- 17e:	80 91 28 01 	lds	r24, 0x0128	; 0x800128 <digit_select.1765>
- 182:	90 91 29 01 	lds	r25, 0x0129	; 0x800129 <digit_select.1765+0x1>
+ 17e:	80 91 28 01 	lds	r24, 0x0128	; 0x800128 <digit_select.1638>
+ 182:	90 91 29 01 	lds	r25, 0x0129	; 0x800129 <digit_select.1638+0x1>
  186:	81 30       	cpi	r24, 0x01	; 1
  188:	91 05       	cpc	r25, r1
  18a:	01 f1       	breq	.+64     	; 0x1cc <min_sec_clock+0x4e>
@@ -444,8 +444,8 @@ void min_sec_clock(void)
 
 	
 	digit_select = (digit_select + 1) % 4;   // 다음 표시할 자리수
- 284:	80 91 28 01 	lds	r24, 0x0128	; 0x800128 <digit_select.1765>
- 288:	90 91 29 01 	lds	r25, 0x0129	; 0x800129 <digit_select.1765+0x1>
+ 284:	80 91 28 01 	lds	r24, 0x0128	; 0x800128 <digit_select.1638>
+ 288:	90 91 29 01 	lds	r25, 0x0129	; 0x800129 <digit_select.1638+0x1>
  28c:	01 96       	adiw	r24, 0x01	; 1
  28e:	83 70       	andi	r24, 0x03	; 3
  290:	90 78       	andi	r25, 0x80	; 128
@@ -455,8 +455,8 @@ void min_sec_clock(void)
  298:	8c 6f       	ori	r24, 0xFC	; 252
  29a:	9f 6f       	ori	r25, 0xFF	; 255
  29c:	01 96       	adiw	r24, 0x01	; 1
- 29e:	90 93 29 01 	sts	0x0129, r25	; 0x800129 <digit_select.1765+0x1>
- 2a2:	80 93 28 01 	sts	0x0128, r24	; 0x800128 <digit_select.1765>
+ 29e:	90 93 29 01 	sts	0x0129, r25	; 0x800129 <digit_select.1638+0x1>
+ 2a2:	80 93 28 01 	sts	0x0128, r24	; 0x800128 <digit_select.1638>
  2a6:	08 95       	ret
 
 000002a8 <sec_circular_clock>:
@@ -466,8 +466,8 @@ void sec_circular_clock(void)
 	static int digit_select = 0;
 	
 	switch(digit_select)
- 2a8:	80 91 26 01 	lds	r24, 0x0126	; 0x800126 <digit_select.1776>
- 2ac:	90 91 27 01 	lds	r25, 0x0127	; 0x800127 <digit_select.1776+0x1>
+ 2a8:	80 91 26 01 	lds	r24, 0x0126	; 0x800126 <digit_select.1649>
+ 2ac:	90 91 27 01 	lds	r25, 0x0127	; 0x800127 <digit_select.1649+0x1>
  2b0:	81 30       	cpi	r24, 0x01	; 1
  2b2:	91 05       	cpc	r25, r1
  2b4:	01 f1       	breq	.+64     	; 0x2f6 <sec_circular_clock+0x4e>
@@ -577,8 +577,8 @@ void sec_circular_clock(void)
 		break;
 	}
 	digit_select = (digit_select + 1) % 4;
- 37c:	80 91 26 01 	lds	r24, 0x0126	; 0x800126 <digit_select.1776>
- 380:	90 91 27 01 	lds	r25, 0x0127	; 0x800127 <digit_select.1776+0x1>
+ 37c:	80 91 26 01 	lds	r24, 0x0126	; 0x800126 <digit_select.1649>
+ 380:	90 91 27 01 	lds	r25, 0x0127	; 0x800127 <digit_select.1649+0x1>
  384:	01 96       	adiw	r24, 0x01	; 1
  386:	83 70       	andi	r24, 0x03	; 3
  388:	90 78       	andi	r25, 0x80	; 128
@@ -588,8 +588,8 @@ void sec_circular_clock(void)
  390:	8c 6f       	ori	r24, 0xFC	; 252
  392:	9f 6f       	ori	r25, 0xFF	; 255
  394:	01 96       	adiw	r24, 0x01	; 1
- 396:	90 93 27 01 	sts	0x0127, r25	; 0x800127 <digit_select.1776+0x1>
- 39a:	80 93 26 01 	sts	0x0126, r24	; 0x800126 <digit_select.1776>
+ 396:	90 93 27 01 	sts	0x0127, r25	; 0x800127 <digit_select.1649+0x1>
+ 39a:	80 93 26 01 	sts	0x0126, r24	; 0x800126 <digit_select.1649>
  39e:	08 95       	ret
 
 000003a0 <display_stopwatch>:
@@ -606,8 +606,8 @@ void display_stopwatch()
 	static int digit_select = 0;
 		
 	switch(digit_select)
- 3a8:	80 91 24 01 	lds	r24, 0x0124	; 0x800124 <digit_select.1793>
- 3ac:	90 91 25 01 	lds	r25, 0x0125	; 0x800125 <digit_select.1793+0x1>
+ 3a8:	80 91 24 01 	lds	r24, 0x0124	; 0x800124 <digit_select.1666>
+ 3ac:	90 91 25 01 	lds	r25, 0x0125	; 0x800125 <digit_select.1666+0x1>
  3b0:	81 30       	cpi	r24, 0x01	; 1
  3b2:	91 05       	cpc	r25, r1
  3b4:	51 f1       	breq	.+84     	; 0x40a <__LOCK_REGION_LENGTH__+0xa>
@@ -729,8 +729,8 @@ void display_stopwatch()
 		break;
 	}
 	digit_select = (digit_select + 1) % 4;
- 494:	80 91 24 01 	lds	r24, 0x0124	; 0x800124 <digit_select.1793>
- 498:	90 91 25 01 	lds	r25, 0x0125	; 0x800125 <digit_select.1793+0x1>
+ 494:	80 91 24 01 	lds	r24, 0x0124	; 0x800124 <digit_select.1666>
+ 498:	90 91 25 01 	lds	r25, 0x0125	; 0x800125 <digit_select.1666+0x1>
  49c:	01 96       	adiw	r24, 0x01	; 1
  49e:	83 70       	andi	r24, 0x03	; 3
  4a0:	90 78       	andi	r25, 0x80	; 128
@@ -740,8 +740,8 @@ void display_stopwatch()
  4a8:	8c 6f       	ori	r24, 0xFC	; 252
  4aa:	9f 6f       	ori	r25, 0xFF	; 255
  4ac:	01 96       	adiw	r24, 0x01	; 1
- 4ae:	90 93 25 01 	sts	0x0125, r25	; 0x800125 <digit_select.1793+0x1>
- 4b2:	80 93 24 01 	sts	0x0124, r24	; 0x800124 <digit_select.1793>
+ 4ae:	90 93 25 01 	sts	0x0125, r25	; 0x800125 <digit_select.1666+0x1>
+ 4b2:	80 93 24 01 	sts	0x0124, r24	; 0x800124 <digit_select.1666>
  4b6:	ff 90       	pop	r15
  4b8:	ef 90       	pop	r14
  4ba:	df 90       	pop	r13
@@ -799,9 +799,9 @@ void reset_watch(void)
  4fe:	08 95       	ret
 
 00000500 <main>:
-	int is_button1_pressed = 0;
-	int is_button2_pressed = 0;
-	
+
+int main(void)
+{
 	int current_state = MIN_SEC_CLOCK;
 	
 	init_button();
@@ -809,11 +809,11 @@ void reset_watch(void)
 	init_fnd();
  502:	2c de       	rcall	.-936    	; 0x15c <init_fnd>
  504:	c0 e0       	ldi	r28, 0x00	; 0
+typedef enum STATE { MIN_SEC_CLOCK, SEC_CIRCULAR_CLOCK, 
+	DEFAULT_STOP_WATCH, RUN_WATCH, RESET_WATCH };
+
+int main(void)
 {
-	int is_button0_pressed = 0;  
-	int is_button1_pressed = 0;
-	int is_button2_pressed = 0;
-	
 	int current_state = MIN_SEC_CLOCK;
  506:	d0 e0       	ldi	r29, 0x00	; 0
  508:	14 c0       	rjmp	.+40     	; 0x532 <main+0x32>
@@ -1057,8 +1057,8 @@ void reset_watch(void)
  6be:	09 f0       	breq	.+2      	; 0x6c2 <main+0x1c2>
  6c0:	27 cf       	rjmp	.-434    	; 0x510 <main+0x10>
  6c2:	37 cf       	rjmp	.-402    	; 0x532 <main+0x32>
+				{
 					current_state = DEFAULT_STOP_WATCH;
-
 				}
 				break;
 			case DEFAULT_STOP_WATCH:

@@ -404,11 +404,11 @@ END GROUP
  *(.bss*)
  .bss.button_status.1740
                 0x00800120        0x4 button.o
- .bss.digit_select.1793
+ .bss.digit_select.1666
                 0x00800124        0x2 fnd.o
- .bss.digit_select.1776
+ .bss.digit_select.1649
                 0x00800126        0x2 fnd.o
- .bss.digit_select.1765
+ .bss.digit_select.1638
                 0x00800128        0x2 fnd.o
  .bss.is_stopwatch_on
                 0x0080012a        0x2 fnd.o
@@ -515,26 +515,26 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xf06
+.debug_info     0x00000000      0xee2
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x780 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128a/avr51/crtatmega128a.o
  .debug_info    0x00000780      0x1b3 button.o
  .debug_info    0x00000933      0x28c fnd.o
- .debug_info    0x00000bbf      0x347 main.o
+ .debug_info    0x00000bbf      0x323 main.o
 
-.debug_abbrev   0x00000000      0xa56
+.debug_abbrev   0x00000000      0xa47
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x718 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128a/avr51/crtatmega128a.o
  .debug_abbrev  0x00000718      0x132 button.o
  .debug_abbrev  0x0000084a       0xc2 fnd.o
- .debug_abbrev  0x0000090c      0x14a main.o
+ .debug_abbrev  0x0000090c      0x13b main.o
 
-.debug_line     0x00000000      0x73f
+.debug_line     0x00000000      0x740
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x16a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128a/avr51/crtatmega128a.o
  .debug_line    0x0000016a      0x17f button.o
  .debug_line    0x000002e9      0x278 fnd.o
- .debug_line    0x00000561      0x1de main.o
+ .debug_line    0x00000561      0x1df main.o
 
 .debug_frame    0x00000000      0x110
  *(.debug_frame)
@@ -542,15 +542,15 @@ END GROUP
  .debug_frame   0x00000034       0xb8 fnd.o
  .debug_frame   0x000000ec       0x24 main.o
 
-.debug_str      0x00000000      0x5ec
+.debug_str      0x00000000      0x5b3
  *(.debug_str)
  .debug_str     0x00000000      0x27d C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128a/avr51/crtatmega128a.o
  .debug_str     0x0000027d      0x1d0 button.o
                                 0x204 (size before relaxing)
  .debug_str     0x0000044d      0x105 fnd.o
                                 0x283 (size before relaxing)
- .debug_str     0x00000552       0x9a main.o
-                                0x302 (size before relaxing)
+ .debug_str     0x00000552       0x61 main.o
+                                0x2c9 (size before relaxing)
 
 .debug_loc      0x00000000      0x26f
  *(.debug_loc)
