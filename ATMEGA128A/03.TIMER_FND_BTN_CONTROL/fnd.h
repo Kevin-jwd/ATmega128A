@@ -28,6 +28,7 @@ uint8_t first_circle[10] = { 0x01, 0, 0, 0, 0, 0x08, 0x04, 0x02 };
 uint8_t second_circle[10] = { 0, 0x01, 0x20, 0x10, 0x08, 0, 0, 0 };
 
 extern volatile uint32_t ms_count;
+uint32_t sec_count_ms = 0;
 uint32_t sec_count = 0;
 uint32_t min_count = 0;
 

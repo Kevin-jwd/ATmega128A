@@ -16,37 +16,9 @@ Discarded input sections
  .text          0x00000000        0x0 button.o
  .data          0x00000000        0x0 button.o
  .bss           0x00000000        0x0 button.o
- .text.get_button
-                0x00000000       0x88 button.o
- .bss.button_status.1740
-                0x00000000        0x4 button.o
  .text          0x00000000        0x0 fnd.o
  .data          0x00000000        0x0 fnd.o
  .bss           0x00000000        0x0 fnd.o
- .text.sec_circular_clock
-                0x00000000       0xfe fnd.o
- .text.display_stopwatch
-                0x00000000      0x12c fnd.o
- .text.default_stop_watch
-                0x00000000        0xe fnd.o
- .text.run_watch
-                0x00000000       0x12 fnd.o
- .text.reset_watch
-                0x00000000       0x26 fnd.o
- .bss.digit_select.1666
-                0x00000000        0x2 fnd.o
- .bss.digit_select.1649
-                0x00000000        0x2 fnd.o
- .bss.is_stopwatch_on
-                0x00000000        0x2 fnd.o
- .bss.stopwatch_sec_count
-                0x00000000        0x4 fnd.o
- .bss.stopwatch_ms_count
-                0x00000000        0x4 fnd.o
- .data.second_circle
-                0x00000000        0xa fnd.o
- .data.first_circle
-                0x00000000        0xa fnd.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -241,7 +213,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x378
+.text           0x00000000      0x814
  *(.vectors)
  .vectors       0x00000000       0x8c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128a/avr51/crtatmega128a.o
                 0x00000000                __vector_default
@@ -331,7 +303,7 @@ END GROUP
                 0x000000c6                __vector_8
                 0x000000c6                __vector_26
                 0x000000c6                __vector_14
-                0x000000c6                __vector_10
+                0x000000c6                __vector_16
                 0x000000c6                __vector_18
                 0x000000c6                __vector_20
                 0x000000c8                . = ALIGN (0x2)
@@ -339,34 +311,52 @@ END GROUP
  .text.init_button
                 0x000000c8        0x8 button.o
                 0x000000c8                init_button
+ .text.get_button
+                0x000000d0       0xb8 button.o
+                0x000000d0                get_button
  .text.turn_off_fnd
-                0x000000d0        0x4 fnd.o
-                0x000000d0                turn_off_fnd
+                0x00000188        0x4 fnd.o
+                0x00000188                turn_off_fnd
  .text.init_fnd
-                0x000000d4        0xe fnd.o
-                0x000000d4                init_fnd
+                0x0000018c        0xe fnd.o
+                0x0000018c                init_fnd
  .text.toggle_dot
-                0x000000e2       0x14 fnd.o
-                0x000000e2                toggle_dot
+                0x0000019a       0x14 fnd.o
+                0x0000019a                toggle_dot
  .text.min_sec_clock
-                0x000000f6      0x12a fnd.o
-                0x000000f6                min_sec_clock
- .text.__vector_16
-                0x00000220       0x4e main.o
-                0x00000220                __vector_16
- .text.init_timer0
-                0x0000026e       0x1a main.o
-                0x0000026e                init_timer0
- .text.main     0x00000288       0xa8 main.o
-                0x00000288                main
+                0x000001ae      0x12a fnd.o
+                0x000001ae                min_sec_clock
+ .text.sec_circular_clock
+                0x000002d8       0xf8 fnd.o
+                0x000002d8                sec_circular_clock
+ .text.display_stopwatch
+                0x000003d0      0x120 fnd.o
+                0x000003d0                display_stopwatch
+ .text.default_stop_watch
+                0x000004f0        0xc fnd.o
+                0x000004f0                default_stop_watch
+ .text.run_watch
+                0x000004fc       0x10 fnd.o
+                0x000004fc                run_watch
+ .text.reset_watch
+                0x0000050c       0x24 fnd.o
+                0x0000050c                reset_watch
+ .text.__vector_10
+                0x00000530       0x4e main.o
+                0x00000530                __vector_10
+ .text.init_timer2
+                0x0000057e       0x1a main.o
+                0x0000057e                init_timer2
+ .text.main     0x00000598      0x234 main.o
+                0x00000598                main
  .text.libgcc.div
-                0x00000330       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodsi4.o)
-                0x00000330                __udivmodsi4
-                0x00000374                . = ALIGN (0x2)
+                0x000007cc       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodsi4.o)
+                0x000007cc                __udivmodsi4
+                0x00000810                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000374        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x00000374                _exit
-                0x00000374                exit
+ .fini9         0x00000810        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x00000810                _exit
+                0x00000810                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -385,52 +375,82 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000374        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x00000810        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000378                _etext = .
+                0x00000814                _etext = .
 
-.data           0x00800100        0xc load address 0x00000378
+.data           0x00800100       0x20 load address 0x00000814
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
  .data.dot_display
                 0x00800100        0x1 fnd.o
                 0x00800100                dot_display
- .data.numbers  0x00800101        0xa fnd.o
-                0x00800101                numbers
+ .data.second_circle
+                0x00800101        0xa fnd.o
+                0x00800101                second_circle
+ .data.first_circle
+                0x0080010b        0xa fnd.o
+                0x0080010b                first_circle
+ .data.numbers  0x00800115        0xa fnd.o
+                0x00800115                numbers
  *(.gnu.linkonce.d*)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.r*)
-                0x0080010c                . = ALIGN (0x2)
- *fill*         0x0080010b        0x1 
-                0x0080010c                _edata = .
-                0x0080010c                PROVIDE (__data_end, .)
+                0x00800120                . = ALIGN (0x2)
+ *fill*         0x0080011f        0x1 
+                0x00800120                _edata = .
+                0x00800120                PROVIDE (__data_end, .)
 
-.bss            0x0080010c        0xe
-                0x0080010c                PROVIDE (__bss_start, .)
+.bss            0x00800120       0x2a
+                0x00800120                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.digit_select.1638
-                0x0080010c        0x2 fnd.o
+ .bss.button_status.1742
+                0x00800120        0x4 button.o
+ .bss.is_pressed
+                0x00800124        0x2 button.o
+                0x00800124                is_pressed
+ .bss.digit_select.1667
+                0x00800126        0x2 fnd.o
+ .bss.digit_select.1650
+                0x00800128        0x2 fnd.o
+ .bss.digit_select.1639
+                0x0080012a        0x2 fnd.o
+ .bss.is_stopwatch_on
+                0x0080012c        0x2 fnd.o
+                0x0080012c                is_stopwatch_on
+ .bss.stopwatch_sec_count
+                0x0080012e        0x4 fnd.o
+                0x0080012e                stopwatch_sec_count
+ .bss.stopwatch_ms_count
+                0x00800132        0x4 fnd.o
+                0x00800132                stopwatch_ms_count
  .bss.min_count
-                0x0080010e        0x4 fnd.o
-                0x0080010e                min_count
+                0x00800136        0x4 fnd.o
+                0x00800136                min_count
  .bss.sec_count
-                0x00800112        0x4 fnd.o
-                0x00800112                sec_count
- .bss.ms_count  0x00800116        0x4 main.o
-                0x00800116                ms_count
+                0x0080013a        0x4 fnd.o
+                0x0080013a                sec_count
+ .bss.sec_count_ms
+                0x0080013e        0x4 fnd.o
+                0x0080013e                sec_count_ms
+ .bss.ms_count  0x00800142        0x4 main.o
+                0x00800142                ms_count
+ .bss.btn_pressed_ms
+                0x00800146        0x4 main.o
+                0x00800146                btn_pressed_ms
  *(COMMON)
-                0x0080011a                PROVIDE (__bss_end, .)
-                0x00000378                __data_load_start = LOADADDR (.data)
-                0x00000384                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0080014a                PROVIDE (__bss_end, .)
+                0x00000814                __data_load_start = LOADADDR (.data)
+                0x00000834                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080011a        0x0
+.noinit         0x0080014a        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x0080011a                _end = .
+                0x0080014a                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -509,26 +529,26 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xd3a
+.debug_info     0x00000000      0xe7f
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x780 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_info    0x00000780      0x1b3 button.o
- .debug_info    0x00000933      0x28c fnd.o
- .debug_info    0x00000bbf      0x17b main.o
+ .debug_info    0x00000780      0x129 button.o
+ .debug_info    0x000008a9      0x29e fnd.o
+ .debug_info    0x00000b47      0x338 main.o
 
-.debug_abbrev   0x00000000      0xa1b
+.debug_abbrev   0x00000000      0x9f1
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x718 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_abbrev  0x00000718      0x132 button.o
- .debug_abbrev  0x0000084a       0xda fnd.o
- .debug_abbrev  0x00000924       0xf7 main.o
+ .debug_abbrev  0x00000718       0xe4 button.o
+ .debug_abbrev  0x000007fc       0xda fnd.o
+ .debug_abbrev  0x000008d6      0x11b main.o
 
-.debug_line     0x00000000      0x68f
+.debug_line     0x00000000      0x6dd
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x16a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_line    0x0000016a      0x17f button.o
- .debug_line    0x000002e9      0x278 fnd.o
- .debug_line    0x00000561      0x12e main.o
+ .debug_line    0x0000016a      0x11f button.o
+ .debug_line    0x00000289      0x278 fnd.o
+ .debug_line    0x00000501      0x1dc main.o
 
 .debug_frame    0x00000000      0x150
  *(.debug_frame)
@@ -536,21 +556,21 @@ END GROUP
  .debug_frame   0x00000034       0xb8 fnd.o
  .debug_frame   0x000000ec       0x64 main.o
 
-.debug_str      0x00000000      0x5d2
+.debug_str      0x00000000      0x5bf
  *(.debug_str)
  .debug_str     0x00000000      0x27d C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_str     0x0000027d      0x1d7 button.o
-                                0x20b (size before relaxing)
- .debug_str     0x00000454      0x105 fnd.o
-                                0x28a (size before relaxing)
- .debug_str     0x00000559       0x79 main.o
-                                0x230 (size before relaxing)
+ .debug_str     0x0000027d      0x1af button.o
+                                0x1e3 (size before relaxing)
+ .debug_str     0x0000042c      0x112 fnd.o
+                                0x297 (size before relaxing)
+ .debug_str     0x0000053e       0x81 main.o
+                                0x2dd (size before relaxing)
 
-.debug_loc      0x00000000      0x208
+.debug_loc      0x00000000      0x226
  *(.debug_loc)
- .debug_loc     0x00000000      0x15c button.o
- .debug_loc     0x0000015c       0x49 fnd.o
- .debug_loc     0x000001a5       0x63 main.o
+ .debug_loc     0x00000000       0xcc button.o
+ .debug_loc     0x000000cc       0x49 fnd.o
+ .debug_loc     0x00000115      0x111 main.o
 
 .debug_macinfo
  *(.debug_macinfo)

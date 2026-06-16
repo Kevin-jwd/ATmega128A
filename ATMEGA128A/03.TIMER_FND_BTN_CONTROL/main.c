@@ -28,7 +28,11 @@ extern uint8_t numbers[10];
 extern uint8_t first_circle[10];
 extern uint8_t second_circle[10];
 
+volatile uint32_t btn_pressed_ms = 0;
+extern int is_pressed;
+
 volatile uint32_t ms_count = 0;
+extern uint32_t sec_count_ms;
 extern uint32_t sec_count;
 extern uint32_t min_count;
 
@@ -39,98 +43,87 @@ extern uint8_t dot_display;
 
 extern int is_stopwatch_on;
 
-void init_timer0(void);
+void init_timer2(void);
 
-ISR(TIMER0_OVF_vect)            // 벡터 번호 17
+ISR(TIMER2_OVF_vect)
 {
-	TCNT0 = 6;
+	TCNT2 = 193;
 	ms_count++;                 // 1ms count
 }
-
 typedef enum STATE { MIN_SEC_CLOCK, SEC_CIRCULAR_CLOCK, 
 	DEFAULT_STOP_WATCH, RUN_WATCH, RESET_WATCH };
 
 int main(void)
 {
 	int current_state = MIN_SEC_CLOCK;
+	uint32_t prev_ms = 0;
 	
-	init_timer0();
+	init_timer2();
 	init_button();
 	init_fnd();
 	
 	while (1)
 	{
-		//if(is_stopwatch_on == 1)
-		//{
-			//stopwatch_ms_count++;
-		//}
-		//
-		if(ms_count >= 1000)
+		if(ms_count != prev_ms)
 		{
-			ms_count = 0;
-			sec_count++;
+			prev_ms = ms_count;
+			
+			sec_count_ms++;
+			if(sec_count_ms >= 1000)
+			{
+				sec_count_ms = 0;
+				sec_count++;
+				toggle_dot();
+			}
+			if(sec_count >= 60)
+			{
+				sec_count = 0;
+				min_count++;
+			}
+			
+			if(is_stopwatch_on == 1)
+			{
+				stopwatch_ms_count++;
+				if(stopwatch_ms_count >= 1000)
+				{
+					stopwatch_ms_count = 0;
+					stopwatch_sec_count++;
+				}
+			}
+			
+			switch(current_state)
+			{
+				case MIN_SEC_CLOCK:
+				min_sec_clock();
+				if(get_button(BUTTON0, BUTTON0PIN))
+				current_state = SEC_CIRCULAR_CLOCK;
+				break;
+				case SEC_CIRCULAR_CLOCK:
+				sec_circular_clock();
+				if(get_button(BUTTON0, BUTTON0PIN))
+				current_state = DEFAULT_STOP_WATCH;
+				break;
+				case DEFAULT_STOP_WATCH:
+				default_stop_watch();
+				if(get_button(BUTTON0, BUTTON0PIN))
+				current_state = MIN_SEC_CLOCK;
+				else if(get_button(BUTTON1, BUTTON1PIN))
+				current_state = RUN_WATCH;
+				else if(get_button(BUTTON2, BUTTON2PIN))
+				current_state = RESET_WATCH;
+				break;
+				case RUN_WATCH:
+				run_watch();
+				if(get_button(BUTTON1, BUTTON1PIN))
+				current_state = DEFAULT_STOP_WATCH;
+				break;
+				case RESET_WATCH:
+				reset_watch();
+				if(get_button(BUTTON2, BUTTON2PIN))
+				current_state = RUN_WATCH;
+				break;
+			}
 		}
-		//
-		//if(stopwatch_ms_count > 1000)
-		//{
-			//stopwatch_ms_count = 0;
-			//stopwatch_sec_count++;
-		//}
-		//
-		if(sec_count >= 60)
-		{
-			sec_count =0 ;
-			min_count++;
-		}
-		min_sec_clock();
-		
-		// 상태 천이
-		//switch(current_state)
-		//{
-			//case MIN_SEC_CLOCK:
-			//min_sec_clock();
-			//if(get_button(BUTTON0, BUTTON0PIN))
-			//{
-				//current_state = SEC_CIRCULAR_CLOCK;
-			//}
-			//break;
-			//case SEC_CIRCULAR_CLOCK:
-			//sec_circular_clock();
-			//if(get_button(BUTTON0, BUTTON0PIN))
-			//{
-				//current_state = DEFAULT_STOP_WATCH;
-			//}
-			//break;
-			//case DEFAULT_STOP_WATCH:
-			//default_stop_watch();
-			//if(get_button(BUTTON0, BUTTON0PIN))
-			//{
-				//current_state = MIN_SEC_CLOCK;
-			//}
-			//else if(get_button(BUTTON1, BUTTON1PIN))
-			//{
-				//current_state = RUN_WATCH;
-			//}
-			//else if(get_button(BUTTON2, BUTTON2PIN))
-			//{
-				//current_state = RESET_WATCH;
-			//}
-			//break;
-			//case RUN_WATCH:
-			//run_watch();
-			//if(get_button(BUTTON1, BUTTON1PIN))
-			//{
-				//current_state = DEFAULT_STOP_WATCH;
-			//}
-			//break;
-			//case RESET_WATCH:
-			//reset_watch();
-			//if(get_button(BUTTON2, BUTTON2PIN))
-			//{
-				//current_state = RUN_WATCH;
-			//}
-			//break;
-		//}
 	}
 	return 0;
 }
@@ -146,12 +139,11 @@ int main(void)
 *        0.000016 x 64 = 0.001024 ( 1.024ms )
 *        0.000016 x 63 = 0.001008 ( 1.008ms )
 */
-void init_timer0()
+void init_timer2()
 {
-	TCNT0 = 6;                                        // TCNT0 6~256
-	TCCR0 &= ~(1 << CS02 | 1 << CS01 | 1 << CS00);    // RESET
-	TCCR0 |= 1 << CS02 | 0 << CS01 | 0 << CS00;       // SET -- 64분주 설정을 위한 세팅
-	TIMSK |= 1 << TOIE0;                              // TIMER0 Overflow Interrupt => 256이 되는 순간 오버플로우에 따른 인터럽트 발생
+	TCNT2 = 193;                                        // TCNT193 ~256
+	TCCR2 &= ~(1 << CS22 | 1 << CS21 | 1 << CS20);    // RESET
+	TCCR2 |= 1 << CS22 | 0 << CS21 | 0 << CS20;       // SET -- 64분주 설정을 위한 세팅
+	TIMSK |= 1 << TOIE2;                              // TIMER0 Overflow Interrupt => 256이 되는 순간 오버플로우에 따른 인터럽트 발생
 	sei();                                            // SREG 7번 비트 SET => 전역적으로 인터럽트 허용
-	
 }

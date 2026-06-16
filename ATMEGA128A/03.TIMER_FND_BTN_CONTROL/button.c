@@ -10,6 +10,9 @@
 void init_button(void);
 int get_button(int button_num, int button_pin);
 
+extern volatile uint32_t btn_pressed_ms;
+int is_pressed = 0;
+
 // 버튼 초기화 방향설정(입력) 
 void init_button(void)
 {
@@ -36,15 +39,36 @@ int get_button(int button_num, int button_pin)
 	// 2. 버튼 상태 check 
 	if (current_state  && button_status[button_num] == BUTTON_RELEASE)  // 버튼이 처음 눌려진 상태 
 	{
-		_delay_ms(20);  // noise가 지나가기를 기다린다. 
-		button_status[button_num] =BUTTON_PRESS;  
-		return 0;     // 아직은 완전히 눌렀다 뗀 상태가 아니다. 
+		is_pressed = 1;
+		while(1)
+		{
+			if(btn_pressed_ms >= 20)
+			{
+				button_status[button_num] =BUTTON_PRESS;
+				is_pressed = 0;
+				return 0;     // 아직은 완전히 눌렀다 뗀 상태가 아니다.
+			}
+			else
+			{
+				continue;
+			}
+		}
 	}
 	else if (button_status[button_num] == BUTTON_PRESS && current_state == BUTTON_RELEASE)
 	{  // 버튼이 이전에 눌려진 상태였으며 지금은 떼어진 상태 
-		_delay_ms(20);  // noise가 지나가기를 기다린다. 
-		button_status[button_num] = BUTTON_RELEASE;   // 다음 버튼을 체크 하기 위하여 초기화
-		return 1;   // 완전히 1번 눌렀다 뗀 상태로 인정 한다. 
+		is_pressed = 1;
+		while(1)
+		{
+			if(btn_pressed_ms >= 20)
+			{
+				button_status[button_num] = BUTTON_RELEASE;   // 다음 버튼을 체크 하기 위하여 초기화
+				return 1;   // 완전히 1번 눌렀다 뗀 상태로 인정 한다.
+			}	
+			else
+			{
+				continue;
+			}
+		}
 	}
 	
 	return 0;   // 버튼이 open 상태 이다. 
