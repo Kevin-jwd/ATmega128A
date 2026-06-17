@@ -1,0 +1,235 @@
+﻿/*
+ * led.c
+ *
+ * Created: 2026-06-10 오후 3:10:22
+ *  Author: user
+ */ 
+
+#include "led.h"
+
+#define FUNC_NUM 6
+
+int led_main(void);
+void init_led(void);
+void led_all_on(void);
+void led_all_off(void);
+void led_shift_left_on(void);
+void led_shift_right_on(void);
+void led_shift_left_keep_on(void);
+void led_shift_right_keep_on(void);
+void led_flower_on(void);
+void led_flower_off(void);
+void led_on_by_distance(int distance);
+
+extern volatile uint32_t ms_count;    // volatile 최적화 방지
+
+int func_state = 0;
+
+void (*fp[])() =
+{
+	led_shift_left_on, 
+	led_shift_right_on, 
+	led_shift_left_keep_on, 
+	led_shift_right_keep_on, 
+	led_flower_on, 
+	led_flower_off
+};
+
+int led_main(void)
+{
+	init_led();
+	led_all_off();
+	
+	while(1)
+	{
+		fp[func_state]();
+	}
+	
+	return 0;
+}
+
+void init_led(void)
+{
+	DDRA=0xff;  // PORTA 를 출력 모드로 설정
+	PORTA=0x00;  // PORTA에 물려있는 led를 all off
+}
+
+void led_all_on(void)
+{
+	PORTA=0xff;
+}
+
+void led_all_off(void)
+{
+	PORTA=0x00;
+}
+
+void led_shift_left_on(void)
+{
+	static int i = 0;
+	
+	if(ms_count >= 100)
+	{
+		ms_count = 0;
+		*(unsigned char *) 0x3B = 1 << i;		
+		i = (i + 1) % 8;
+		//if((i = (i + 1) % 8) == 0)
+		//{
+			//func_state = (func_state+1) % FUNC_NUM;
+		//}
+	}
+}
+
+void led_shift_right_on(void)
+{
+	static int i = 0;
+
+	if(ms_count >= 100)
+	{
+		ms_count = 0;
+		*(unsigned char *) 0x3B = 0x80 >> i;
+		i = (i + 1) % 8;
+		//if((i = (i + 1) % 8) == 0)
+		//{
+			//func_state = (func_state+1) % FUNC_NUM;
+		//}
+	}
+}
+
+void led_shift_left_keep_on(void)
+{
+	static int i = 0;
+
+	if(ms_count >= 100)
+	{
+		ms_count = 0;
+		if(i == 0)
+		{
+			led_all_off();
+		}
+		else
+		{
+			PORTA |= (1 << i-1);    	
+		}
+		
+		i = (i + 1) % 9;
+
+		//if((i = (i + 1) % 8) == 0)
+		//{
+			//func_state = (func_state+1) % FUNC_NUM;
+			//led_all_off();
+		//}
+	}
+}
+
+void led_shift_right_keep_on(void)
+{
+	static int i = 0;
+	
+	if(ms_count >= 100)
+	{
+		ms_count = 0;
+		if(i == 0)
+		{
+			led_all_off();
+		}
+		else
+		{
+			PORTA |= (0x80 >> i-1);      
+		}
+	
+		i = (i + 1) % 9;
+	
+		//if((i = (i + 1) % 8) == 0)
+		//{
+			//func_state = (func_state+1) % FUNC_NUM;
+			//led_all_off();
+		//}
+	}
+}
+
+void led_flower_on(void)
+{
+	static int i = 0;
+	
+	if(ms_count >= 100)
+	{
+		ms_count = 0;
+		if(i == 0)
+		{
+			led_all_off();
+		}
+		else
+		{
+			PORTA |= 1 << (4-i) | 1 << (3+i);			
+		}
+		i = (i+1) % 5;
+		
+		//if((i = (i + 1) % 4) == 0)
+		//{
+			//func_state = (func_state+1) % FUNC_NUM;
+		//}
+	}
+}
+
+void led_flower_off(void)
+{
+	static int i = 0;
+
+	if(ms_count >= 100)
+	{	
+		ms_count = 0;
+		if(i == 0)
+		{
+			led_all_on();			
+		}
+		else
+		{
+			PORTA &= ~(1 << i-1 | 1 << (8-i));		
+		}
+
+		i = (i+1) % 5;	
+		
+		//if((i = (i + 1) % 4) == 0)
+		//{
+			//func_state = (func_state+1) % FUNC_NUM;
+		//}
+	}
+}
+
+void led_on_by_distance(int distance)
+{	
+	if(distance <= 2)
+	{
+		PORTA = 0b00000001;
+	}
+	else if(distance <= 3)
+	{
+		PORTA = 0b00000011;
+	}
+	else if(distance <= 4)
+	{
+		PORTA = 0b00000111;
+	}
+	else if(distance <= 5)
+	{
+		PORTA = 0b00001111;
+	}
+	else if(distance <= 6)
+	{
+		PORTA = 0b00011111;
+	}
+	else if(distance <= 7)
+	{
+		PORTA = 0b00111111;
+	}
+	else if(distance <= 10)
+	{
+		PORTA = 0b01111111;
+	}
+	else
+	{
+		PORTA = 0b11111111;
+	}
+	_delay_ms(200);
+}
