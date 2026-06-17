@@ -142,24 +142,24 @@ void display_stopwatch()
 	{
 		// ms 10 단위
 		case 0:
-		FND_CONTROL_PORT = ~0x80;
-		FND_DATA_PORT = numbers[stopwatch_ms_count/10 % 10];
-		break;
+			FND_CONTROL_PORT = ~0x80;
+			FND_DATA_PORT = numbers[stopwatch_ms_count/10 % 10];
+			break;
 		// ms 100 단위
 		case 1:
-		FND_CONTROL_PORT = ~0x40;
-		FND_DATA_PORT = numbers[stopwatch_ms_count / 100];
-		break;
+			FND_CONTROL_PORT = ~0x40;
+			FND_DATA_PORT = numbers[stopwatch_ms_count / 100];
+			break;
 		// sec 1 단위
 		case 2:
-		FND_CONTROL_PORT = ~0x20;
-		FND_DATA_PORT = numbers[stopwatch_sec_count % 10];
-		break;
+			FND_CONTROL_PORT = ~0x20;
+			FND_DATA_PORT = numbers[stopwatch_sec_count % 10];
+			break;
 		// sec 10 단위
 		case 3:
-		FND_CONTROL_PORT = ~0x10;
-		FND_DATA_PORT = numbers[stopwatch_sec_count/10 % 6];
-		break;
+			FND_CONTROL_PORT = ~0x10;
+			FND_DATA_PORT = numbers[stopwatch_sec_count/10 % 6];
+			break;
 	}
 	digit_select = (digit_select + 1) % 4;
 }

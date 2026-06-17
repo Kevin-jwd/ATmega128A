@@ -80,7 +80,6 @@ int main(void)
 				sec_count = 0;
 				min_count++;
 			}
-			
 			if(is_stopwatch_on == 1)
 			{
 				stopwatch_ms_count++;
@@ -94,33 +93,47 @@ int main(void)
 			switch(current_state)
 			{
 				case MIN_SEC_CLOCK:
-				min_sec_clock();
-				if(get_button(BUTTON0, BUTTON0PIN))
-				current_state = SEC_CIRCULAR_CLOCK;
-				break;
+					min_sec_clock();
+					if(get_button(BUTTON0, BUTTON0PIN))
+					{
+							current_state = SEC_CIRCULAR_CLOCK;
+					}
+					break;
 				case SEC_CIRCULAR_CLOCK:
-				sec_circular_clock();
-				if(get_button(BUTTON0, BUTTON0PIN))
-				current_state = DEFAULT_STOP_WATCH;
-				break;
+					sec_circular_clock();
+					if(get_button(BUTTON0, BUTTON0PIN))
+					{
+						current_state = DEFAULT_STOP_WATCH;
+					}
+					break;
 				case DEFAULT_STOP_WATCH:
-				default_stop_watch();
-				if(get_button(BUTTON0, BUTTON0PIN))
-				current_state = MIN_SEC_CLOCK;
-				else if(get_button(BUTTON1, BUTTON1PIN))
-				current_state = RUN_WATCH;
-				else if(get_button(BUTTON2, BUTTON2PIN))
-				current_state = RESET_WATCH;
-				break;
+					default_stop_watch();
+					if(get_button(BUTTON0, BUTTON0PIN))
+					{
+						current_state = MIN_SEC_CLOCK;
+					}
+					else if(get_button(BUTTON1, BUTTON1PIN))
+					{
+						current_state = RUN_WATCH;	
+					}
+					else if(get_button(BUTTON2, BUTTON2PIN))
+					{
+						current_state = RESET_WATCH;	
+					}
+					break;
 				case RUN_WATCH:
-				run_watch();
-				if(get_button(BUTTON1, BUTTON1PIN))
-				current_state = DEFAULT_STOP_WATCH;
-				break;
+					run_watch();
+					if(get_button(BUTTON1, BUTTON1PIN))
+					{
+						current_state = DEFAULT_STOP_WATCH;					
+					}
+					break;	
 				case RESET_WATCH:
-				reset_watch();
-				if(get_button(BUTTON2, BUTTON2PIN))
-				current_state = RUN_WATCH;
+					reset_watch();
+					if(get_button(BUTTON2, BUTTON2PIN))
+					{
+						current_state = RUN_WATCH;
+					}
 				break;
 			}
 		}

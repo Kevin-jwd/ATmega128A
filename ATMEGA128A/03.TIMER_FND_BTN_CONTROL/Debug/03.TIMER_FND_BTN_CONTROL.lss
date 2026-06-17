@@ -19,7 +19,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 000009f1  00000000  00000000  0000186f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000006dd  00000000  00000000  00002260  2**0
+  8 .debug_line   000006de  00000000  00000000  00002260  2**0
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  00000150  00000000  00000000  00002940  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -645,10 +645,10 @@ void display_stopwatch()
 	{
 		// ms 10 단위
 		case 0:
-		FND_CONTROL_PORT = ~0x80;
+			FND_CONTROL_PORT = ~0x80;
  3fc:	8f e7       	ldi	r24, 0x7F	; 127
  3fe:	88 bb       	out	0x18, r24	; 24
-		FND_DATA_PORT = numbers[stopwatch_ms_count/10 % 10];
+			FND_DATA_PORT = numbers[stopwatch_ms_count/10 % 10];
  400:	60 91 32 01 	lds	r22, 0x0132	; 0x800132 <stopwatch_ms_count>
  404:	70 91 33 01 	lds	r23, 0x0133	; 0x800133 <stopwatch_ms_count+0x1>
  408:	80 91 34 01 	lds	r24, 0x0134	; 0x800134 <stopwatch_ms_count+0x2>
@@ -673,14 +673,14 @@ void display_stopwatch()
  432:	fe 4f       	sbci	r31, 0xFE	; 254
  434:	80 81       	ld	r24, Z
  436:	85 bb       	out	0x15, r24	; 21
-		break;
+			break;
  438:	45 c0       	rjmp	.+138    	; 0x4c4 <__LOCK_REGION_LENGTH__+0xc4>
 		// ms 100 단위
 		case 1:
-		FND_CONTROL_PORT = ~0x40;
+			FND_CONTROL_PORT = ~0x40;
  43a:	8f eb       	ldi	r24, 0xBF	; 191
  43c:	88 bb       	out	0x18, r24	; 24
-		FND_DATA_PORT = numbers[stopwatch_ms_count / 100];
+			FND_DATA_PORT = numbers[stopwatch_ms_count / 100];
  43e:	60 91 32 01 	lds	r22, 0x0132	; 0x800132 <stopwatch_ms_count>
  442:	70 91 33 01 	lds	r23, 0x0133	; 0x800133 <stopwatch_ms_count+0x1>
  446:	80 91 34 01 	lds	r24, 0x0134	; 0x800134 <stopwatch_ms_count+0x2>
@@ -695,14 +695,14 @@ void display_stopwatch()
  45c:	fe 4f       	sbci	r31, 0xFE	; 254
  45e:	80 81       	ld	r24, Z
  460:	85 bb       	out	0x15, r24	; 21
-		break;
+			break;
  462:	30 c0       	rjmp	.+96     	; 0x4c4 <__LOCK_REGION_LENGTH__+0xc4>
 		// sec 1 단위
 		case 2:
-		FND_CONTROL_PORT = ~0x20;
+			FND_CONTROL_PORT = ~0x20;
  464:	8f ed       	ldi	r24, 0xDF	; 223
  466:	88 bb       	out	0x18, r24	; 24
-		FND_DATA_PORT = numbers[stopwatch_sec_count % 10];
+			FND_DATA_PORT = numbers[stopwatch_sec_count % 10];
  468:	60 91 2e 01 	lds	r22, 0x012E	; 0x80012e <stopwatch_sec_count>
  46c:	70 91 2f 01 	lds	r23, 0x012F	; 0x80012f <stopwatch_sec_count+0x1>
  470:	80 91 30 01 	lds	r24, 0x0130	; 0x800130 <stopwatch_sec_count+0x2>
@@ -717,14 +717,14 @@ void display_stopwatch()
  486:	fe 4f       	sbci	r31, 0xFE	; 254
  488:	80 81       	ld	r24, Z
  48a:	85 bb       	out	0x15, r24	; 21
-		break;
+			break;
  48c:	1b c0       	rjmp	.+54     	; 0x4c4 <__LOCK_REGION_LENGTH__+0xc4>
 		// sec 10 단위
 		case 3:
-		FND_CONTROL_PORT = ~0x10;
+			FND_CONTROL_PORT = ~0x10;
  48e:	8f ee       	ldi	r24, 0xEF	; 239
  490:	88 bb       	out	0x18, r24	; 24
-		FND_DATA_PORT = numbers[stopwatch_sec_count/10 % 6];
+			FND_DATA_PORT = numbers[stopwatch_sec_count/10 % 6];
  492:	60 91 2e 01 	lds	r22, 0x012E	; 0x80012e <stopwatch_sec_count>
  496:	70 91 2f 01 	lds	r23, 0x012F	; 0x80012f <stopwatch_sec_count+0x1>
  49a:	80 91 30 01 	lds	r24, 0x0130	; 0x800130 <stopwatch_sec_count+0x2>
@@ -746,7 +746,7 @@ void display_stopwatch()
  4be:	fe 4f       	sbci	r31, 0xFE	; 254
  4c0:	80 81       	ld	r24, Z
  4c2:	85 bb       	out	0x15, r24	; 21
-		break;
+			break;
 	}
 	digit_select = (digit_select + 1) % 4;
  4c4:	80 91 26 01 	lds	r24, 0x0126	; 0x800126 <digit_select.1667>
@@ -916,54 +916,62 @@ int main(void)
  5a6:	d0 e0       	ldi	r29, 0x00	; 0
  5a8:	14 c0       	rjmp	.+40     	; 0x5d2 <main+0x3a>
  5aa:	c1 e0       	ldi	r28, 0x01	; 1
-			switch(current_state)
 			{
 				case MIN_SEC_CLOCK:
-				min_sec_clock();
-				if(get_button(BUTTON0, BUTTON0PIN))
-				current_state = SEC_CIRCULAR_CLOCK;
+					min_sec_clock();
+					if(get_button(BUTTON0, BUTTON0PIN))
+					{
+							current_state = SEC_CIRCULAR_CLOCK;
  5ac:	d0 e0       	ldi	r29, 0x00	; 0
  5ae:	11 c0       	rjmp	.+34     	; 0x5d2 <main+0x3a>
  5b0:	c2 e0       	ldi	r28, 0x02	; 2
-				break;
+					break;
 				case SEC_CIRCULAR_CLOCK:
-				sec_circular_clock();
-				if(get_button(BUTTON0, BUTTON0PIN))
-				current_state = DEFAULT_STOP_WATCH;
+					sec_circular_clock();
+					if(get_button(BUTTON0, BUTTON0PIN))
+					{
+						current_state = DEFAULT_STOP_WATCH;
  5b2:	d0 e0       	ldi	r29, 0x00	; 0
  5b4:	0e c0       	rjmp	.+28     	; 0x5d2 <main+0x3a>
  5b6:	c0 e0       	ldi	r28, 0x00	; 0
-				break;
+					break;
 				case DEFAULT_STOP_WATCH:
-				default_stop_watch();
-				if(get_button(BUTTON0, BUTTON0PIN))
-				current_state = MIN_SEC_CLOCK;
+					default_stop_watch();
+					if(get_button(BUTTON0, BUTTON0PIN))
+					{
+						current_state = MIN_SEC_CLOCK;
  5b8:	d0 e0       	ldi	r29, 0x00	; 0
  5ba:	0b c0       	rjmp	.+22     	; 0x5d2 <main+0x3a>
  5bc:	c3 e0       	ldi	r28, 0x03	; 3
-				else if(get_button(BUTTON1, BUTTON1PIN))
-				current_state = RUN_WATCH;
+					}
+					else if(get_button(BUTTON1, BUTTON1PIN))
+					{
+						current_state = RUN_WATCH;	
  5be:	d0 e0       	ldi	r29, 0x00	; 0
  5c0:	08 c0       	rjmp	.+16     	; 0x5d2 <main+0x3a>
  5c2:	c4 e0       	ldi	r28, 0x04	; 4
-				else if(get_button(BUTTON2, BUTTON2PIN))
-				current_state = RESET_WATCH;
+					}
+					else if(get_button(BUTTON2, BUTTON2PIN))
+					{
+						current_state = RESET_WATCH;	
  5c4:	d0 e0       	ldi	r29, 0x00	; 0
  5c6:	05 c0       	rjmp	.+10     	; 0x5d2 <main+0x3a>
  5c8:	c2 e0       	ldi	r28, 0x02	; 2
-				break;
+					break;
 				case RUN_WATCH:
-				run_watch();
-				if(get_button(BUTTON1, BUTTON1PIN))
-				current_state = DEFAULT_STOP_WATCH;
+					run_watch();
+					if(get_button(BUTTON1, BUTTON1PIN))
+					{
+						current_state = DEFAULT_STOP_WATCH;					
  5ca:	d0 e0       	ldi	r29, 0x00	; 0
  5cc:	02 c0       	rjmp	.+4      	; 0x5d2 <main+0x3a>
  5ce:	c3 e0       	ldi	r28, 0x03	; 3
-				break;
+					break;	
 				case RESET_WATCH:
-				reset_watch();
-				if(get_button(BUTTON2, BUTTON2PIN))
-				current_state = RUN_WATCH;
+					reset_watch();
+					if(get_button(BUTTON2, BUTTON2PIN))
+					{
+						current_state = RUN_WATCH;
  5d0:	d0 e0       	ldi	r29, 0x00	; 0
  5d2:	80 91 42 01 	lds	r24, 0x0142	; 0x800142 <ms_count>
 	init_button();
@@ -1055,7 +1063,6 @@ int main(void)
  6ae:	b0 93 39 01 	sts	0x0139, r27	; 0x800139 <min_count+0x3>
  6b2:	80 91 2c 01 	lds	r24, 0x012C	; 0x80012c <is_stopwatch_on>
 			}
-			
 			if(is_stopwatch_on == 1)
  6b6:	90 91 2d 01 	lds	r25, 0x012D	; 0x80012d <is_stopwatch_on+0x1>
  6ba:	01 97       	sbiw	r24, 0x01	; 1
@@ -1121,9 +1128,9 @@ int main(void)
  746:	45 cf       	rjmp	.-374    	; 0x5d2 <main+0x3a>
 			{
 				case MIN_SEC_CLOCK:
-				min_sec_clock();
+					min_sec_clock();
  748:	32 dd       	rcall	.-1436   	; 0x1ae <min_sec_clock>
-				if(get_button(BUTTON0, BUTTON0PIN))
+					if(get_button(BUTTON0, BUTTON0PIN))
  74a:	63 e0       	ldi	r22, 0x03	; 3
  74c:	70 e0       	ldi	r23, 0x00	; 0
  74e:	80 e0       	ldi	r24, 0x00	; 0
@@ -1133,13 +1140,15 @@ int main(void)
  756:	09 f0       	breq	.+2      	; 0x75a <main+0x1c2>
  758:	28 cf       	rjmp	.-432    	; 0x5aa <main+0x12>
  75a:	3b cf       	rjmp	.-394    	; 0x5d2 <main+0x3a>
-				current_state = SEC_CIRCULAR_CLOCK;
-				break;
+					{
+							current_state = SEC_CIRCULAR_CLOCK;
+					}
+					break;
 				case SEC_CIRCULAR_CLOCK:
-				sec_circular_clock();
+					sec_circular_clock();
  75c:	bd dd       	rcall	.-1158   	; 0x2d8 <sec_circular_clock>
  75e:	63 e0       	ldi	r22, 0x03	; 3
-				if(get_button(BUTTON0, BUTTON0PIN))
+					if(get_button(BUTTON0, BUTTON0PIN))
  760:	70 e0       	ldi	r23, 0x00	; 0
  762:	80 e0       	ldi	r24, 0x00	; 0
  764:	90 e0       	ldi	r25, 0x00	; 0
@@ -1148,13 +1157,15 @@ int main(void)
  76a:	09 f0       	breq	.+2      	; 0x76e <main+0x1d6>
  76c:	21 cf       	rjmp	.-446    	; 0x5b0 <main+0x18>
  76e:	31 cf       	rjmp	.-414    	; 0x5d2 <main+0x3a>
-				current_state = DEFAULT_STOP_WATCH;
-				break;
+					{
+						current_state = DEFAULT_STOP_WATCH;
+					}
+					break;
 				case DEFAULT_STOP_WATCH:
-				default_stop_watch();
+					default_stop_watch();
  770:	bf de       	rcall	.-642    	; 0x4f0 <default_stop_watch>
  772:	63 e0       	ldi	r22, 0x03	; 3
-				if(get_button(BUTTON0, BUTTON0PIN))
+					if(get_button(BUTTON0, BUTTON0PIN))
  774:	70 e0       	ldi	r23, 0x00	; 0
  776:	80 e0       	ldi	r24, 0x00	; 0
  778:	90 e0       	ldi	r25, 0x00	; 0
@@ -1163,8 +1174,10 @@ int main(void)
  77e:	09 f0       	breq	.+2      	; 0x782 <main+0x1ea>
  780:	1a cf       	rjmp	.-460    	; 0x5b6 <main+0x1e>
  782:	64 e0       	ldi	r22, 0x04	; 4
-				current_state = MIN_SEC_CLOCK;
-				else if(get_button(BUTTON1, BUTTON1PIN))
+					{
+						current_state = MIN_SEC_CLOCK;
+					}
+					else if(get_button(BUTTON1, BUTTON1PIN))
  784:	70 e0       	ldi	r23, 0x00	; 0
  786:	81 e0       	ldi	r24, 0x01	; 1
  788:	90 e0       	ldi	r25, 0x00	; 0
@@ -1172,8 +1185,10 @@ int main(void)
  78c:	89 2b       	or	r24, r25
  78e:	09 f0       	breq	.+2      	; 0x792 <main+0x1fa>
  790:	15 cf       	rjmp	.-470    	; 0x5bc <main+0x24>
-				current_state = RUN_WATCH;
-				else if(get_button(BUTTON2, BUTTON2PIN))
+					{
+						current_state = RUN_WATCH;	
+					}
+					else if(get_button(BUTTON2, BUTTON2PIN))
  792:	65 e0       	ldi	r22, 0x05	; 5
  794:	70 e0       	ldi	r23, 0x00	; 0
  796:	82 e0       	ldi	r24, 0x02	; 2
@@ -1182,13 +1197,15 @@ int main(void)
  79c:	89 2b       	or	r24, r25
  79e:	09 f0       	breq	.+2      	; 0x7a2 <main+0x20a>
  7a0:	10 cf       	rjmp	.-480    	; 0x5c2 <main+0x2a>
-				current_state = RESET_WATCH;
-				break;
+					{
+						current_state = RESET_WATCH;	
+					}
+					break;
 				case RUN_WATCH:
-				run_watch();
+					run_watch();
  7a2:	17 cf       	rjmp	.-466    	; 0x5d2 <main+0x3a>
  7a4:	ab de       	rcall	.-682    	; 0x4fc <run_watch>
-				if(get_button(BUTTON1, BUTTON1PIN))
+					if(get_button(BUTTON1, BUTTON1PIN))
  7a6:	64 e0       	ldi	r22, 0x04	; 4
  7a8:	70 e0       	ldi	r23, 0x00	; 0
  7aa:	81 e0       	ldi	r24, 0x01	; 1
@@ -1198,13 +1215,15 @@ int main(void)
  7b2:	09 f0       	breq	.+2      	; 0x7b6 <main+0x21e>
  7b4:	09 cf       	rjmp	.-494    	; 0x5c8 <main+0x30>
  7b6:	0d cf       	rjmp	.-486    	; 0x5d2 <main+0x3a>
-				current_state = DEFAULT_STOP_WATCH;
-				break;
+					{
+						current_state = DEFAULT_STOP_WATCH;					
+					}
+					break;	
 				case RESET_WATCH:
-				reset_watch();
+					reset_watch();
  7b8:	a9 de       	rcall	.-686    	; 0x50c <reset_watch>
  7ba:	65 e0       	ldi	r22, 0x05	; 5
-				if(get_button(BUTTON2, BUTTON2PIN))
+					if(get_button(BUTTON2, BUTTON2PIN))
  7bc:	70 e0       	ldi	r23, 0x00	; 0
  7be:	82 e0       	ldi	r24, 0x02	; 2
  7c0:	90 e0       	ldi	r25, 0x00	; 0
