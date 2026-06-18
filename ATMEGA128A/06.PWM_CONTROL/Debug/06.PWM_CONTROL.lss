@@ -1,0 +1,270 @@
+
+06.PWM_CONTROL.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000166  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000112  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  00000166  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000198  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000040  00000000  00000000  000001d8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000957  00000000  00000000  00000218  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000857  00000000  00000000  00000b6f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000337  00000000  00000000  000013c6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000078  00000000  00000000  00001700  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000043f  00000000  00000000  00001778  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000131  00000000  00000000  00001bb7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000030  00000000  00000000  00001ce8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	45 c0       	rjmp	.+138    	; 0x8c <__ctors_end>
+   2:	00 00       	nop
+   4:	4b c0       	rjmp	.+150    	; 0x9c <__bad_interrupt>
+   6:	00 00       	nop
+   8:	49 c0       	rjmp	.+146    	; 0x9c <__bad_interrupt>
+   a:	00 00       	nop
+   c:	47 c0       	rjmp	.+142    	; 0x9c <__bad_interrupt>
+   e:	00 00       	nop
+  10:	45 c0       	rjmp	.+138    	; 0x9c <__bad_interrupt>
+  12:	00 00       	nop
+  14:	43 c0       	rjmp	.+134    	; 0x9c <__bad_interrupt>
+  16:	00 00       	nop
+  18:	41 c0       	rjmp	.+130    	; 0x9c <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	3f c0       	rjmp	.+126    	; 0x9c <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	3d c0       	rjmp	.+122    	; 0x9c <__bad_interrupt>
+  22:	00 00       	nop
+  24:	3b c0       	rjmp	.+118    	; 0x9c <__bad_interrupt>
+  26:	00 00       	nop
+  28:	39 c0       	rjmp	.+114    	; 0x9c <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	37 c0       	rjmp	.+110    	; 0x9c <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	35 c0       	rjmp	.+106    	; 0x9c <__bad_interrupt>
+  32:	00 00       	nop
+  34:	33 c0       	rjmp	.+102    	; 0x9c <__bad_interrupt>
+  36:	00 00       	nop
+  38:	31 c0       	rjmp	.+98     	; 0x9c <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	2f c0       	rjmp	.+94     	; 0x9c <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	2d c0       	rjmp	.+90     	; 0x9c <__bad_interrupt>
+  42:	00 00       	nop
+  44:	2b c0       	rjmp	.+86     	; 0x9c <__bad_interrupt>
+  46:	00 00       	nop
+  48:	29 c0       	rjmp	.+82     	; 0x9c <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	27 c0       	rjmp	.+78     	; 0x9c <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	25 c0       	rjmp	.+74     	; 0x9c <__bad_interrupt>
+  52:	00 00       	nop
+  54:	23 c0       	rjmp	.+70     	; 0x9c <__bad_interrupt>
+  56:	00 00       	nop
+  58:	21 c0       	rjmp	.+66     	; 0x9c <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	1f c0       	rjmp	.+62     	; 0x9c <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	1d c0       	rjmp	.+58     	; 0x9c <__bad_interrupt>
+  62:	00 00       	nop
+  64:	1b c0       	rjmp	.+54     	; 0x9c <__bad_interrupt>
+  66:	00 00       	nop
+  68:	19 c0       	rjmp	.+50     	; 0x9c <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	17 c0       	rjmp	.+46     	; 0x9c <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	15 c0       	rjmp	.+42     	; 0x9c <__bad_interrupt>
+  72:	00 00       	nop
+  74:	13 c0       	rjmp	.+38     	; 0x9c <__bad_interrupt>
+  76:	00 00       	nop
+  78:	11 c0       	rjmp	.+34     	; 0x9c <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	0f c0       	rjmp	.+30     	; 0x9c <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	0d c0       	rjmp	.+26     	; 0x9c <__bad_interrupt>
+  82:	00 00       	nop
+  84:	0b c0       	rjmp	.+22     	; 0x9c <__bad_interrupt>
+  86:	00 00       	nop
+  88:	09 c0       	rjmp	.+18     	; 0x9c <__bad_interrupt>
+	...
+
+0000008c <__ctors_end>:
+  8c:	11 24       	eor	r1, r1
+  8e:	1f be       	out	0x3f, r1	; 63
+  90:	cf ef       	ldi	r28, 0xFF	; 255
+  92:	d0 e1       	ldi	r29, 0x10	; 16
+  94:	de bf       	out	0x3e, r29	; 62
+  96:	cd bf       	out	0x3d, r28	; 61
+  98:	26 d0       	rcall	.+76     	; 0xe6 <main>
+  9a:	39 c0       	rjmp	.+114    	; 0x10e <_exit>
+
+0000009c <__bad_interrupt>:
+  9c:	b1 cf       	rjmp	.-158    	; 0x0 <__vectors>
+
+0000009e <init_led>:
+}
+
+// ---- LED 초기화 함수 ----
+void init_led()
+{
+	DDRA=0xff;  // PORTA 를 출력 모드로 설정
+  9e:	8f ef       	ldi	r24, 0xFF	; 255
+  a0:	8a bb       	out	0x1a, r24	; 26
+	PORTA=0x00;  // PORTA에 물려있는 led를 all off
+  a2:	1b ba       	out	0x1b, r1	; 27
+  a4:	08 95       	ret
+
+000000a6 <led_all_on>:
+}
+
+// ---- LED 모두 점등 함수 ----
+void led_all_on()
+{
+	PORTA = 0xff;
+  a6:	8f ef       	ldi	r24, 0xFF	; 255
+  a8:	8b bb       	out	0x1b, r24	; 27
+  aa:	08 95       	ret
+
+000000ac <led_all_off>:
+}
+
+// ---- LED 모두 소등 함수 ----
+void led_all_off()
+{
+	PORTA = 0x00;
+  ac:	1b ba       	out	0x1b, r1	; 27
+  ae:	08 95       	ret
+
+000000b0 <turn_on_LED_in_PWM_manner>:
+}
+
+// ---- PWM 신호 생성 함수 ----
+void turn_on_LED_in_PWM_manner(int dim)
+{
+  b0:	0f 93       	push	r16
+  b2:	1f 93       	push	r17
+  b4:	cf 93       	push	r28
+  b6:	df 93       	push	r29
+  b8:	8c 01       	movw	r16, r24
+	
+	int i;
+	led_all_on();
+  ba:	f5 df       	rcall	.-22     	; 0xa6 <led_all_on>
+	
+	for(i = 0;i < 256;i++)
+  bc:	c0 e0       	ldi	r28, 0x00	; 0
+  be:	d0 e0       	ldi	r29, 0x00	; 0
+  c0:	09 c0       	rjmp	.+18     	; 0xd4 <turn_on_LED_in_PWM_manner+0x24>
+	{	
+		if(i > dim) 
+  c2:	0c 17       	cp	r16, r28
+  c4:	1d 07       	cpc	r17, r29
+		{
+			led_all_off();
+  c6:	0c f4       	brge	.+2      	; 0xca <turn_on_LED_in_PWM_manner+0x1a>
+  c8:	f1 df       	rcall	.-30     	; 0xac <led_all_off>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  ca:	8a e6       	ldi	r24, 0x6A	; 106
+  cc:	8a 95       	dec	r24
+  ce:	f1 f7       	brne	.-4      	; 0xcc <turn_on_LED_in_PWM_manner+0x1c>
+  d0:	00 c0       	rjmp	.+0      	; 0xd2 <turn_on_LED_in_PWM_manner+0x22>
+{
+	
+	int i;
+	led_all_on();
+	
+	for(i = 0;i < 256;i++)
+  d2:	21 96       	adiw	r28, 0x01	; 1
+  d4:	cf 3f       	cpi	r28, 0xFF	; 255
+  d6:	d1 05       	cpc	r29, r1
+  d8:	a1 f3       	breq	.-24     	; 0xc2 <turn_on_LED_in_PWM_manner+0x12>
+  da:	9c f3       	brlt	.-26     	; 0xc2 <turn_on_LED_in_PWM_manner+0x12>
+		{
+			led_all_off();
+		}
+		_delay_us(LED_TIME);
+	}
+  dc:	df 91       	pop	r29
+  de:	cf 91       	pop	r28
+  e0:	1f 91       	pop	r17
+  e2:	0f 91       	pop	r16
+  e4:	08 95       	ret
+
+000000e6 <main>:
+void led_all_off(void);
+void turn_on_LED_in_PWM_manner(int dim);
+
+int main(void)
+{
+    init_led();
+  e6:	db df       	rcall	.-74     	; 0x9e <init_led>
+	
+	int dim = 0;
+	int direction = 1;
+  e8:	01 e0       	ldi	r16, 0x01	; 1
+  ea:	10 e0       	ldi	r17, 0x00	; 0
+
+int main(void)
+{
+    init_led();
+	
+	int dim = 0;
+  ec:	c0 e0       	ldi	r28, 0x00	; 0
+  ee:	d0 e0       	ldi	r29, 0x00	; 0
+  f0:	02 c0       	rjmp	.+4      	; 0xf6 <main+0x10>
+		turn_on_LED_in_PWM_manner(dim);
+		
+		dim += direction;
+		
+		if(dim == 0) direction = 1;
+		if(dim == 255) direction = -1;
+  f2:	0f ef       	ldi	r16, 0xFF	; 255
+  f4:	1f ef       	ldi	r17, 0xFF	; 255
+	int dim = 0;
+	int direction = 1;
+	
+    while (1) 
+    {
+		turn_on_LED_in_PWM_manner(dim);
+  f6:	ce 01       	movw	r24, r28
+  f8:	db df       	rcall	.-74     	; 0xb0 <turn_on_LED_in_PWM_manner>
+		
+		dim += direction;
+  fa:	c0 0f       	add	r28, r16
+  fc:	d1 1f       	adc	r29, r17
+		
+		if(dim == 0) direction = 1;
+  fe:	20 97       	sbiw	r28, 0x00	; 0
+ 100:	11 f4       	brne	.+4      	; 0x106 <main+0x20>
+ 102:	01 e0       	ldi	r16, 0x01	; 1
+ 104:	10 e0       	ldi	r17, 0x00	; 0
+		if(dim == 255) direction = -1;
+ 106:	cf 3f       	cpi	r28, 0xFF	; 255
+ 108:	d1 05       	cpc	r29, r1
+ 10a:	a9 f7       	brne	.-22     	; 0xf6 <main+0x10>
+ 10c:	f2 cf       	rjmp	.-28     	; 0xf2 <main+0xc>
+
+0000010e <_exit>:
+ 10e:	f8 94       	cli
+
+00000110 <__stop_program>:
+ 110:	ff cf       	rjmp	.-2      	; 0x110 <__stop_program>

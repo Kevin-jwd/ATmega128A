@@ -11,7 +11,7 @@ extern volatile int ultrasonic_check_time;
 
 volatile int distance = 0;
 volatile char scm[50];
-volatile int falling_edge_detected = 0;
+volatile int falling_edge_detected = 0;             // 하강 edge 검출 플래그
 
 void init_ultrasonic(void);
 void make_trigger(void);
@@ -42,7 +42,7 @@ ISR(INT4_vect)      // 벡터 주소 6
 		// 소요 시간 -> cm 
 		sprintf(scm, "dis: %dcm\n", distance / 58);
 		led_on_by_distance(distance / 58);
-		falling_edge_detected = 1;
+		falling_edge_detected = 1;                 // 하강 edge 검출             
 	}
 }
 
@@ -87,7 +87,7 @@ void make_trigger(void)
 // ---- 1초마다 trig 펄스 생성 함수 ----
 void process_ultrasonic(void)
 {
-	if(falling_edge_detected == 1)
+	if(falling_edge_detected == 1)          // 하강 edge 검출됐으면
 	{
 		falling_edge_detected = 0;
 		ultrasonic_check_time = 0;
