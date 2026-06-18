@@ -5,9 +5,13 @@
  *  Author: kccistc
  */ 
 #include "uart0.h"
+#include "washing_machine.h"
 
 extern int func_state;
 extern void (*fp[])();
+
+extern volatile uint32_t state;
+extern volatile uint32_t time_setting[3];
 
 void init_uart0(void);
 void UART0_transmit(uint8_t data);
@@ -120,6 +124,20 @@ void process_washing_time()
 {
 	if(front != rear)
 	{
-		;
+		int t = atoi(rx_buff[front]);
+		front = (front + 1) % QUEUE_SIZE;
+		
+		switch(state)
+		{
+			case TWASH:
+				time_setting[0] = t;
+				break;
+			case TRINSE:
+				time_setting[1] = t;
+				break;
+			case TDEHYDRATE:
+				time_setting[2] = t;
+				break;
+		}
 	}
 }

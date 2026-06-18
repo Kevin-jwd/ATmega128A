@@ -169,34 +169,50 @@ void turn_off_fnd(void)
 	//digit_select = (digit_select + 1) % 4;
 //}
 
-void washing_machine_timer(sec_count)
+void washing_machine_timer(int sec_count)
 {
 	turn_off_fnd();
 	
 	static int digit_select = 0;
 	
-	switch(digit_select)
+	int min = sec_count / 60;
+	int sec = sec_count % 60;
+	
+	// 1분 미만: 초 단위 표시
+	if(sec_count < 60)  
 	{
-		// sec 1 단위
-		case 0:
-		FND_CONTROL_PORT = ~0x80;
-		FND_DATA_PORT = numbers[sec_count % 10];
-		break;
-		// sec 10 단위
-		case 1:
-		FND_CONTROL_PORT = ~0x40;
-		FND_DATA_PORT = numbers[sec_count/10] | 0x80;
-		break;
-		// min 100 단위
-		case 2:
-		FND_CONTROL_PORT = ~0x20;
-		FND_DATA_PORT = numbers[(sec_count/60) % 10];
-		break;
-		// min 1000 단위
-		case 3:
-		FND_CONTROL_PORT = ~0x10;
-		FND_DATA_PORT = numbers[sec_count/600];
-		break;
+		switch(digit_select)
+		{
+			case 0:
+			FND_CONTROL_PORT = ~0x80;
+			FND_DATA_PORT = numbers[sec % 10];
+			break;
+			case 1:
+			FND_CONTROL_PORT = ~0x40;
+			FND_DATA_PORT = numbers[sec / 10];
+			break;
+			case 2:
+			case 3:
+			break;
+		}
+	}
+	// 1분 이상: 분 단위 표시
+	else  
+	{
+		switch(digit_select)
+		{
+			case 0:
+			FND_CONTROL_PORT = ~0x20;
+			FND_DATA_PORT = numbers[min % 10];
+			break;
+			case 1:
+			FND_CONTROL_PORT = ~0x10;
+			FND_DATA_PORT = numbers[min / 10];
+			break;
+			case 2:
+			case 3:
+			break;
+		}
 	}
 	digit_select = (digit_select + 1) % 4;
 }

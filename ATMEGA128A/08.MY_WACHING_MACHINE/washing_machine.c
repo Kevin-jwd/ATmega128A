@@ -7,48 +7,53 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "button.h"
+#include "washing_machine.h"
 
 extern void washing_machine_timer(int sec_count);
 extern void washing_machine_motor(int mode);
 extern void one_circle_display(int display_ms_count);
+extern void process_washing_time(void);
 
 void washing_machine_main(void);
 void machine_ready(void);
 void input_time(int state);
 void wash(void);
-void hydrate(void);
+void rinse(void);
 void dehydrate(void);
 
 volatile uint32_t display_ms_count = 0;
 volatile uint32_t ms_count=0; 
 volatile uint32_t sec_count=0;
 volatile int ultrasonic_check_time = 0;
-
+volatile uint32_t time_setting[3] = {5, 5, 5};
+	
 uint8_t is_displaying = 0;
 
 // 세탁기 상태 
 volatile uint32_t state = 0;
 volatile uint32_t is_machine_running = 0;
 
-// 0: 대기, 1: 세탁 시간 설정, 2: 헹굼 시간 설정, 3: 탈수 시간 설정, 4: 세탁, 5: 헹굼, 6: 탈수
-typedef enum STATE { READY, TWASH, THYDRATE, TDEHYDRATE, WASH, HYDRATE, DEHYDRATE};
-
 ISR(TIMER0_OVF_vect)            // 벡터 번호 17
 {
-	if(is_machine_running == 1)
-	{
-		TCNT0 = 6;
-		ms_count++;
-	}
-	if(ms_count >= 300)
-	{
-		display_ms_count = (display_ms_count + 1) % 6;
-	}
-	if(ms_count >= 1000)
-	{
-		ms_count = 0;
-		sec_count++;
-	}
+    TCNT0 = 6;
+    static uint16_t display_tick = 0;  
+
+    display_tick++;
+    if(display_tick >= 300)
+    {
+	    display_tick = 0;
+	    display_ms_count = (display_ms_count + 1) % 6;
+    }
+    
+    if(is_machine_running == 1)
+    {
+	    ms_count++;
+	    if(ms_count >= 1000)
+	    {
+		    ms_count = 0;
+		    sec_count++;
+	    }
+    }
 }
 
 void washing_machine_main(void)
@@ -64,16 +69,19 @@ void washing_machine_main(void)
 				break;
 			case TWASH:
 				input_time(1);
+				process_washing_time();
 				if(get_button(BUTTON1, BUTTON1PIN)) state = 2;
 				else if(get_button(BUTTON2, BUTTON2PIN)) is_displaying = 0;
 				break;
-			case THYDRATE:
+			case TRINSE:
 				input_time(2);
+				process_washing_time();
 				if(get_button(BUTTON1, BUTTON1PIN)) state = 3;
 				else if(get_button(BUTTON2, BUTTON2PIN)) is_displaying = 0;
 				break;
 			case TDEHYDRATE:
 				input_time(3);
+				process_washing_time();
 				if(get_button(BUTTON1, BUTTON1PIN)) state = 0;
 				else if(get_button(BUTTON2, BUTTON2PIN)) is_displaying = 0;
 				break;
@@ -85,8 +93,8 @@ void washing_machine_main(void)
 					 is_displaying = 0;
 				}
 				break;
-			case HYDRATE:
-				hydrate();
+			case RINSE:
+				rinse();
 				if(get_button(BUTTON0, BUTTON0PIN))
 				{
 					state = 0;
@@ -132,10 +140,10 @@ void input_time(int state)
 		}
 		break;
 		case 2:
-		if(is_displaying != (1 << THYDRATE))
+		if(is_displaying != (1 << TRINSE))
 		{
 			printf("hydrate time:\n ");
-			is_displaying = 1 << THYDRATE;
+			is_displaying = 1 << TRINSE;
 		}
 		break;
 		case 3:
@@ -169,7 +177,7 @@ void wash()
 	washing_machine_timer(sec_count);
 	washing_machine_motor(WASH);
 	// 시간 종료
-	if(sec_count >= 5)
+	if(sec_count >= time_setting[0])
 	{
 		sec_count = 0;
 		state++;
@@ -177,19 +185,19 @@ void wash()
 	}
 }
 
-void hydrate()
+void rinse()
 {
 	PORTA |= 1 << 1;
 	
-	if(is_displaying != (1 << HYDRATE))
+	if(is_displaying != (1 << RINSE))
 	{
 		printf("hydrate\n");
-		is_displaying = 1 << HYDRATE;
+		is_displaying = 1 << RINSE;
 	}
 	washing_machine_timer(sec_count);
-	washing_machine_motor(HYDRATE);
+	washing_machine_motor(RINSE);
 	// 시간 종료
-	if(sec_count >= 5)
+	if(sec_count >= time_setting[1])
 	{
 		sec_count = 0;
 		state++;
@@ -210,7 +218,7 @@ void dehydrate()
 	washing_machine_timer(sec_count);
 	washing_machine_motor(6);
 	// 시간 종료
-	if(sec_count >= 5)
+	if(sec_count >= time_setting[2])
 	{
 		sec_count = 0;
 		state = 0;
