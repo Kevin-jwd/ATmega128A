@@ -11,11 +11,9 @@ extern int func_state;
 extern void (*fp[])();
 
 extern volatile uint32_t state;
-extern volatile uint32_t time_setting[3];
 
 void init_uart0(void);
 void UART0_transmit(uint8_t data);
-void process_pc_command(void);
 
 // PC로부터 1byte가 들어오면 인터럽트 서비스 루틴 실행
 // ex. 입력이 led_all_on\n 면 11번 진입
@@ -82,62 +80,4 @@ void UART0_transmit(uint8_t data)
 	
 	// USART Data Register n
 	UDR0 = data;
-}
-
-// 
-void process_pc_command()
-{
-	// 데이터가 존재
-	if(front != rear)
-	{
-		printf("%s\n", rx_buff[front]);
-		if(strncmp(rx_buff[front], "led_shift_left_on", strlen("led_shift_left_on")) == 0)
-		{
-			func_state = 0;
-		}
-		else if(strncmp(rx_buff[front], "led_shift_right_on", strlen("led_shift_right_on")) == 0)
-		{
-			func_state = 1;
-		}
-		else if(strncmp(rx_buff[front], "led_shift_left_keep_on", strlen("led_shift_left_keep_on")) == 0)
-		{
-			func_state = 2;
-		}
-		else if(strncmp(rx_buff[front], "led_shift_right_keep_on", strlen("led_shift_right_keep_on")) == 0)
-		{
-			func_state = 3;
-		}
-		else if(strncmp(rx_buff[front], "led_flower_on", strlen("led_flower_on")) == 0)
-		{
-			func_state = 4;
-		}
-		else if(strncmp(rx_buff[front], "led_flower_off", strlen("led_flower_off")) == 0)
-		{
-			func_state = 5;
-		}
-		front = (front + 1) % QUEUE_SIZE;
-	}
-	fp[func_state] ();
-}
-
-void process_washing_time()
-{
-	if(front != rear)
-	{
-		int t = atoi(rx_buff[front]);
-		front = (front + 1) % QUEUE_SIZE;
-		
-		switch(state)
-		{
-			case TWASH:
-				time_setting[0] = t;
-				break;
-			case TRINSE:
-				time_setting[1] = t;
-				break;
-			case TDEHYDRATE:
-				time_setting[2] = t;
-				break;
-		}
-	}
 }

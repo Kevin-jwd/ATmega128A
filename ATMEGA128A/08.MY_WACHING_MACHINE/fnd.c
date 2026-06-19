@@ -15,10 +15,13 @@ void run_watch(void);
 void default_stop_watch(void);
 void reset_watch(void);
 void display_stopwatch(void);
-void one_circle_display(int display_ms_count);
+void one_circle_display(uint32_t display_ms_count);
+void display_running_time(uint32_t sec_count);
+void washing_machine_timer(uint32_t sec_count, uint32_t count, uint32_t display_ms_count);
 
 extern uint32_t ms_count;
 extern uint32_t sec_count;
+extern int motor_direction;
 
 // ---- FND 초기화 함수 ----
 void init_fnd(void)
@@ -169,31 +172,33 @@ void turn_off_fnd(void)
 	//digit_select = (digit_select + 1) % 4;
 //}
 
-void washing_machine_timer(int sec_count)
-{
+void washing_machine_timer(uint32_t sec_count, uint32_t count, uint32_t display_ms_count)
+{	
 	turn_off_fnd();
-	
 	static int digit_select = 0;
 	
-	int min = sec_count / 60;
-	int sec = sec_count % 60;
+	int rest_second = count - sec_count;
+	int min = rest_second / 60;
+	int sec = rest_second % 60;
 	
 	// 1분 미만: 초 단위 표시
-	if(sec_count < 60)  
+	if(rest_second < 60)  
 	{
 		switch(digit_select)
 		{
 			case 0:
-			FND_CONTROL_PORT = ~0x80;
-			FND_DATA_PORT = numbers[sec % 10];
-			break;
+				FND_CONTROL_PORT = ~0x80;
+				FND_DATA_PORT = numbers[sec % 10];
+				break;
 			case 1:
-			FND_CONTROL_PORT = ~0x40;
-			FND_DATA_PORT = numbers[sec / 10];
-			break;
+				FND_CONTROL_PORT = ~0x40;
+				FND_DATA_PORT = numbers[sec / 10];
+				break;
 			case 2:
-			case 3:
-			break;
+				FND_CONTROL_PORT = ~0x10;
+				if(motor_direction) FND_DATA_PORT = one_circle[display_ms_count];
+				else FND_DATA_PORT = one_circle[5-display_ms_count];
+				break;
 		}
 	}
 	// 1분 이상: 분 단위 표시
@@ -202,47 +207,82 @@ void washing_machine_timer(int sec_count)
 		switch(digit_select)
 		{
 			case 0:
-			FND_CONTROL_PORT = ~0x20;
-			FND_DATA_PORT = numbers[min % 10];
-			break;
+				FND_CONTROL_PORT = ~0x80;
+				FND_DATA_PORT = numbers[min % 10];
+				break;
 			case 1:
-			FND_CONTROL_PORT = ~0x10;
-			FND_DATA_PORT = numbers[min / 10];
-			break;
+				FND_CONTROL_PORT = ~0x40;
+				FND_DATA_PORT = numbers[min / 10];
+				break;
 			case 2:
-			case 3:
-			break;
+				FND_CONTROL_PORT = ~0x10;
+				if(motor_direction) FND_DATA_PORT = one_circle[display_ms_count];
+				else FND_DATA_PORT = one_circle[5-display_ms_count];
+				break;
 		}
+	}
+	digit_select = (digit_select + 1) % 3;
+}
+
+// ---- 대기 상태 원형 디스플레이 함수 ----
+void one_circle_display(uint32_t display_ms_count)
+{
+	static int digit_select = 0;
+		
+	switch(digit_select)
+	{
+		// sec 1 단위
+		case 0:
+			FND_CONTROL_PORT = ~0x80;
+			FND_DATA_PORT = one_circle[display_ms_count];
+			break;
+		// sec 10 단위
+		case 1:
+			FND_CONTROL_PORT = ~0x40;
+			FND_DATA_PORT = one_circle[display_ms_count];
+			break;
+		// min 100 단위
+		case 2:
+			FND_CONTROL_PORT = ~0x20;
+			FND_DATA_PORT = one_circle[display_ms_count];
+			break;
+		// min 1000 단위
+		case 3:
+			FND_CONTROL_PORT = ~0x10;
+			FND_DATA_PORT = one_circle[display_ms_count];
+			break;
 	}
 	digit_select = (digit_select + 1) % 4;
 }
 
-void one_circle_display(int display_ms_count)
+// ----
+void display_running_time(uint32_t sec_count)
 {
-		static int digit_select = 0;
-		
-		switch(digit_select)
-		{
-			// sec 1 단위
-			case 0:
+	turn_off_fnd();
+	
+	static int digit_select = 0;
+	
+	int min = sec_count / 60;
+	int sec = sec_count % 60;
+	
+	switch(digit_select)
+	{
+		case 0:
 			FND_CONTROL_PORT = ~0x80;
-			FND_DATA_PORT = one_circle[display_ms_count];
+			FND_DATA_PORT = numbers[sec % 10];
 			break;
-			// sec 10 단위
-			case 1:
+		case 1:
 			FND_CONTROL_PORT = ~0x40;
-			FND_DATA_PORT = one_circle[display_ms_count];
+			FND_DATA_PORT = numbers[sec / 10];
 			break;
-			// min 100 단위
-			case 2:
+		case 2:
 			FND_CONTROL_PORT = ~0x20;
-			FND_DATA_PORT = one_circle[display_ms_count];
+			FND_DATA_PORT = numbers[min % 10];
 			break;
-			// min 1000 단위
-			case 3:
+		case 3:
 			FND_CONTROL_PORT = ~0x10;
-			FND_DATA_PORT = one_circle[display_ms_count];
+			FND_DATA_PORT = numbers[min / 10];
 			break;
-		}
-		digit_select = (digit_select + 1) % 4;
+	}
+	digit_select = (digit_select + 1) % 4;
 }

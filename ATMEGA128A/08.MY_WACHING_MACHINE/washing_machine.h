@@ -13,6 +13,5 @@
 typedef enum STATE { READY, TWASH, TRINSE, TDEHYDRATE, WASH, RINSE, DEHYDRATE};
 
 extern volatile uint32_t state;
-extern volatile uint32_t time_setting[3];
 
 #endif /* WASHING_MACHINE_H_ */

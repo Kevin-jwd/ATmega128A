@@ -8,10 +8,15 @@
 
 extern int get_button(int button_num, int button_pin);
 
+extern uint32_t sec_count;
+extern uint8_t is_direction_changed;
+
 void init_timer3_pwm(void);
 void init_motor_driver(void);
 void dcmotor_pwm_control_main(void);
 void washing_machine_motor(int mode);
+
+int motor_direction = 0;
 
 /*
 * ---- 타이머 3번 PWM 초기화 함수 ----
@@ -100,24 +105,34 @@ void dcmotor_pwm_control_main(void)
 
 void washing_machine_motor(int mode)
 {
+	if(mode == 0)
+	{
+		OCR3C = 0;
+		return;
+	}
+	if(is_direction_changed)
+	{
+		PORTF &= ~(1 << 6 | 1 << 7);
+		if(motor_direction) PORTF |= 1 << 6;      // 정회전
+		else PORTF |= 1 << 7;                     // 역회전
+			
+		is_direction_changed = 0;
+	}
+
 	switch(mode)
 	{
-		case 0: 
-			OCR3C = 0;
-			break;
 		// 세탁
-		case 4: 
+		case 4:				
 			OCR3C = 240;
 			break;
 		// 헹굼
-		case 5: 
-			OCR3C = 150;
+		case 5:
+			OCR3C = 150;	
 			break;
 		// 탈수
-		case 6: 
-			PORTF &= ~(1 << 6 | 1 << 7);
-			PORTF |= 1 << 7;
+		case 6:
 			OCR3C = 240;
 			break;
 	}
+	
 }
