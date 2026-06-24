@@ -15,12 +15,12 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
-#define TRIGGER_DDR DDRG
-#define TRIGGER_PORT PORTG
-#define TRIGGER_PIN 4
+#define TRIGGER_DDR DDRA
+#define TRIGGER_PORT PORTA
+#define TRIGGER_PIN 2
 
 #define ECHO_DDR DDRE
 #define ECHO_PORT PINE
-#define ECHO_PIN 4
+#define ECHO_PIN 6
 
 #endif /* ULTRASONIC_H_ */
