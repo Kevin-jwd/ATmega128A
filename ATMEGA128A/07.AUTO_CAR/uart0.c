@@ -23,7 +23,7 @@ ISR(USART0_RX_vect)       // USART0 Rx Complete 벡터 번호 19
 	data = UDR0;          // UDR0의 내용이 data에 복사된 후 UDR0는 비움
 	
 	// is full
-	if((rear+1) % QUEUE_SIZE == front)
+	if((rear+1) % QUEUE_SIZE == uart0_front)
 	{
 		return;
 	}
@@ -32,14 +32,14 @@ ISR(USART0_RX_vect)       // USART0 Rx Complete 벡터 번호 19
 	if(data == '\n' || data == '\r')
 	{
 		// is not full
-		rx_buff[rear][i] = NULL;         // 문장의 끝 삽입
+		rx_buff[uart0_rear][i] = NULL;         // 문장의 끝 삽입
 		i = 0;                           // 다음 string 저장 위해서 초기화
-		rear = (rear + 1) % QUEUE_SIZE;  // rear : 0~9
+		rear = (uart0_rear + 1) % QUEUE_SIZE;  // rear : 0~9
 	}
 	// 데이터 이어받기
 	else
 	{
-		rx_buff[rear][i++] = data;
+		rx_buff[uart0_rear][i++] = data;
 	}
 }
 
@@ -83,35 +83,35 @@ void UART0_transmit(uint8_t data)
 // 
 void process_pc_command()
 {
-	// 데이터가 존재
-	if(front != rear)
-	{
-		printf("%s\n", rx_buff[front]);
-		if(strncmp(rx_buff[front], "led_shift_left_on", strlen("led_shift_left_on")) == 0)
-		{
-			func_state = 0;
-		}
-		else if(strncmp(rx_buff[front], "led_shift_right_on", strlen("led_shift_right_on")) == 0)
-		{
-			func_state = 1;
-		}
-		else if(strncmp(rx_buff[front], "led_shift_left_keep_on", strlen("led_shift_left_keep_on")) == 0)
-		{
-			func_state = 2;
-		}
-		else if(strncmp(rx_buff[front], "led_shift_right_keep_on", strlen("led_shift_right_keep_on")) == 0)
-		{
-			func_state = 3;
-		}
-		else if(strncmp(rx_buff[front], "led_flower_on", strlen("led_flower_on")) == 0)
-		{
-			func_state = 4;
-		}
-		else if(strncmp(rx_buff[front], "led_flower_off", strlen("led_flower_off")) == 0)
-		{
-			func_state = 5;
-		}
-		front = (front + 1) % QUEUE_SIZE;
-	}
-	fp[func_state] ();
+	//// 데이터가 존재
+	//if(uart0_front != uart0_rear)
+	//{
+		//printf("%s\n", rx_buff[front]);
+		//if(strncmp(rx_buff[front], "led_shift_left_on", strlen("led_shift_left_on")) == 0)
+		//{
+			//func_state = 0;
+		//}
+		//else if(strncmp(rx_buff[front], "led_shift_right_on", strlen("led_shift_right_on")) == 0)
+		//{
+			//func_state = 1;
+		//}
+		//else if(strncmp(rx_buff[front], "led_shift_left_keep_on", strlen("led_shift_left_keep_on")) == 0)
+		//{
+			//func_state = 2;
+		//}
+		//else if(strncmp(rx_buff[front], "led_shift_right_keep_on", strlen("led_shift_right_keep_on")) == 0)
+		//{
+			//func_state = 3;
+		//}
+		//else if(strncmp(rx_buff[front], "led_flower_on", strlen("led_flower_on")) == 0)
+		//{
+			//func_state = 4;
+		//}
+		//else if(strncmp(rx_buff[front], "led_flower_off", strlen("led_flower_off")) == 0)
+		//{
+			//func_state = 5;
+		//}
+		//front = (front + 1) % QUEUE_SIZE;
+	//}
+	//fp[func_state] ();
 }
