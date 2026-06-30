@@ -1,42 +1,37 @@
-﻿/*
- * calc.c
- *
- * Created: 2026-06-29 오후 4:09:34
- *  Author: kccistc
- */ 
+﻿#include "cal.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-extern uint8_t delete_queue(void);
+char input_buffer[32]; 
+int buf_idx = 0;       
 
-void calc(void);
+void input_calculator(char key) {
 
-int operator = '+';
-int buff[10][100];
-int num[10];
-
-int num_idx = 0;
-int buff_idx = 0;
-
-void calc()
-{
-	if(delete_queue() == '=')
-	{
-		while(!queue_empty())
-		{
-			int data = delete_queue();
-			if(data == '+' || data == '-' || data == '*' || data == '/')
-			{
-				operator = data;
-				num_idx++;
-			}
-			else
-			{
-				buff[num_idx][buff_idx++] = data;
-			}
-		}
-		for(int i = 0;i<num_idx;i++)
-		{
-			atoi(num)
-		}
+	if (key == '=') {
+		input_buffer[buf_idx] = '\0';
 		
+		int32_t num1 = 0, num2 = 0;
+		char op = '\0';
+		int32_t result = 0;
+
+		if (sscanf(input_buffer, "%d%c%d", &num1, &op, &num2) == 3) {
+			if (op == '+') result = num1 + num2;
+			else if (op == '-') result = num1 - num2;
+			else if (op == '*') result = num1 * num2;
+			else if (op == '/') {
+				if (num2 != 0) result = num1 / num2;
+				else result = 0; 
+			}
+
+			printf("result : %d", result);
+			buf_idx = sprintf(input_buffer, "d", result);
+		}
+		return;
+	}
+
+	if (buf_idx < 31) {
+		input_buffer[buf_idx] = key;
+		buf_idx++;
+		input_buffer[buf_idx] = '\0'; 
 	}
 }

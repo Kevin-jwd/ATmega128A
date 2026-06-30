@@ -1,0 +1,332 @@
+
+00.I2C_S_LOOPBACK.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000232  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001be  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          0000000a  00800100  00800100  00000232  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000232  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000264  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000030  00000000  00000000  000002a4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000008aa  00000000  00000000  000002d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000007e4  00000000  00000000  00000b7e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000002cf  00000000  00000000  00001362  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000064  00000000  00000000  00001634  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003f3  00000000  00000000  00001698  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000000ad  00000000  00000000  00001a8b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000020  00000000  00000000  00001b38  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	45 c0       	rjmp	.+138    	; 0x8c <__ctors_end>
+   2:	00 00       	nop
+   4:	53 c0       	rjmp	.+166    	; 0xac <__bad_interrupt>
+   6:	00 00       	nop
+   8:	51 c0       	rjmp	.+162    	; 0xac <__bad_interrupt>
+   a:	00 00       	nop
+   c:	4f c0       	rjmp	.+158    	; 0xac <__bad_interrupt>
+   e:	00 00       	nop
+  10:	4d c0       	rjmp	.+154    	; 0xac <__bad_interrupt>
+  12:	00 00       	nop
+  14:	4b c0       	rjmp	.+150    	; 0xac <__bad_interrupt>
+  16:	00 00       	nop
+  18:	49 c0       	rjmp	.+146    	; 0xac <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	47 c0       	rjmp	.+142    	; 0xac <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	45 c0       	rjmp	.+138    	; 0xac <__bad_interrupt>
+  22:	00 00       	nop
+  24:	43 c0       	rjmp	.+134    	; 0xac <__bad_interrupt>
+  26:	00 00       	nop
+  28:	41 c0       	rjmp	.+130    	; 0xac <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	3f c0       	rjmp	.+126    	; 0xac <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	3d c0       	rjmp	.+122    	; 0xac <__bad_interrupt>
+  32:	00 00       	nop
+  34:	3b c0       	rjmp	.+118    	; 0xac <__bad_interrupt>
+  36:	00 00       	nop
+  38:	39 c0       	rjmp	.+114    	; 0xac <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	37 c0       	rjmp	.+110    	; 0xac <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	35 c0       	rjmp	.+106    	; 0xac <__bad_interrupt>
+  42:	00 00       	nop
+  44:	33 c0       	rjmp	.+102    	; 0xac <__bad_interrupt>
+  46:	00 00       	nop
+  48:	31 c0       	rjmp	.+98     	; 0xac <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	2f c0       	rjmp	.+94     	; 0xac <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	2d c0       	rjmp	.+90     	; 0xac <__bad_interrupt>
+  52:	00 00       	nop
+  54:	2b c0       	rjmp	.+86     	; 0xac <__bad_interrupt>
+  56:	00 00       	nop
+  58:	29 c0       	rjmp	.+82     	; 0xac <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	27 c0       	rjmp	.+78     	; 0xac <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	25 c0       	rjmp	.+74     	; 0xac <__bad_interrupt>
+  62:	00 00       	nop
+  64:	23 c0       	rjmp	.+70     	; 0xac <__bad_interrupt>
+  66:	00 00       	nop
+  68:	21 c0       	rjmp	.+66     	; 0xac <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	1f c0       	rjmp	.+62     	; 0xac <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	1d c0       	rjmp	.+58     	; 0xac <__bad_interrupt>
+  72:	00 00       	nop
+  74:	1b c0       	rjmp	.+54     	; 0xac <__bad_interrupt>
+  76:	00 00       	nop
+  78:	19 c0       	rjmp	.+50     	; 0xac <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	17 c0       	rjmp	.+46     	; 0xac <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	15 c0       	rjmp	.+42     	; 0xac <__bad_interrupt>
+  82:	00 00       	nop
+  84:	1b c0       	rjmp	.+54     	; 0xbc <__vector_33>
+  86:	00 00       	nop
+  88:	11 c0       	rjmp	.+34     	; 0xac <__bad_interrupt>
+	...
+
+0000008c <__ctors_end>:
+  8c:	11 24       	eor	r1, r1
+  8e:	1f be       	out	0x3f, r1	; 63
+  90:	cf ef       	ldi	r28, 0xFF	; 255
+  92:	d0 e1       	ldi	r29, 0x10	; 16
+  94:	de bf       	out	0x3e, r29	; 62
+  96:	cd bf       	out	0x3d, r28	; 61
+
+00000098 <__do_clear_bss>:
+  98:	21 e0       	ldi	r18, 0x01	; 1
+  9a:	a0 e0       	ldi	r26, 0x00	; 0
+  9c:	b1 e0       	ldi	r27, 0x01	; 1
+  9e:	01 c0       	rjmp	.+2      	; 0xa2 <.do_clear_bss_start>
+
+000000a0 <.do_clear_bss_loop>:
+  a0:	1d 92       	st	X+, r1
+
+000000a2 <.do_clear_bss_start>:
+  a2:	aa 30       	cpi	r26, 0x0A	; 10
+  a4:	b2 07       	cpc	r27, r18
+  a6:	e1 f7       	brne	.-8      	; 0xa0 <.do_clear_bss_loop>
+  a8:	85 d0       	rcall	.+266    	; 0x1b4 <main>
+  aa:	87 c0       	rjmp	.+270    	; 0x1ba <_exit>
+
+000000ac <__bad_interrupt>:
+  ac:	a9 cf       	rjmp	.-174    	; 0x0 <__vectors>
+
+000000ae <i2c_slave_init>:
+/* ─────────────────────────────────────────
+ *  TWI 초기화 (Slave 모드)
+ * ───────────────────────────────────────── */
+void i2c_slave_init(void)
+{
+    TWAR  = (SLAVE_ADDR << 1);          /* TWAR: Address Register 7-bit 주소 설정(0x50), 브로드캐스트 응답 비활성 */
+  ae:	80 ea       	ldi	r24, 0xA0	; 160
+  b0:	80 93 72 00 	sts	0x0072, r24	; 0x800072 <__TEXT_REGION_LENGTH__+0x7e0072>
+    TWCR  = (1 << TWEA) | (1 << TWEN) | (1 << TWIE); /* ACK 활성화, Interrupt 활성화 */
+  b4:	85 e4       	ldi	r24, 0x45	; 69
+  b6:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <__TEXT_REGION_LENGTH__+0x7e0074>
+  ba:	08 95       	ret
+
+000000bc <__vector_33>:
+
+/* ─────────────────────────────────────────
+ *  TWI 인터럽트 서비스 루틴
+ * ───────────────────────────────────────── */
+ISR(TWI_vect)
+{
+  bc:	1f 92       	push	r1
+  be:	0f 92       	push	r0
+  c0:	0f b6       	in	r0, 0x3f	; 63
+  c2:	0f 92       	push	r0
+  c4:	11 24       	eor	r1, r1
+  c6:	0b b6       	in	r0, 0x3b	; 59
+  c8:	0f 92       	push	r0
+  ca:	8f 93       	push	r24
+  cc:	9f 93       	push	r25
+  ce:	ef 93       	push	r30
+  d0:	ff 93       	push	r31
+    uint8_t status = TWSR & 0xF8;
+  d2:	80 91 71 00 	lds	r24, 0x0071	; 0x800071 <__TEXT_REGION_LENGTH__+0x7e0071>
+  d6:	88 7f       	andi	r24, 0xF8	; 248
+
+    switch (status)
+  d8:	88 3a       	cpi	r24, 0xA8	; 168
+  da:	91 f1       	breq	.+100    	; 0x140 <__vector_33+0x84>
+  dc:	40 f4       	brcc	.+16     	; 0xee <__vector_33+0x32>
+  de:	80 38       	cpi	r24, 0x80	; 128
+  e0:	a9 f0       	breq	.+42     	; 0x10c <__vector_33+0x50>
+  e2:	80 3a       	cpi	r24, 0xA0	; 160
+  e4:	39 f1       	breq	.+78     	; 0x134 <__vector_33+0x78>
+  e6:	80 36       	cpi	r24, 0x60	; 96
+  e8:	09 f0       	breq	.+2      	; 0xec <__vector_33+0x30>
+  ea:	56 c0       	rjmp	.+172    	; 0x198 <__vector_33+0xdc>
+  ec:	09 c0       	rjmp	.+18     	; 0x100 <__vector_33+0x44>
+  ee:	80 3c       	cpi	r24, 0xC0	; 192
+  f0:	09 f4       	brne	.+2      	; 0xf4 <__vector_33+0x38>
+  f2:	4c c0       	rjmp	.+152    	; 0x18c <__vector_33+0xd0>
+  f4:	88 3c       	cpi	r24, 0xC8	; 200
+  f6:	09 f4       	brne	.+2      	; 0xfa <__vector_33+0x3e>
+  f8:	49 c0       	rjmp	.+146    	; 0x18c <__vector_33+0xd0>
+  fa:	88 3b       	cpi	r24, 0xB8	; 184
+  fc:	19 f1       	breq	.+70     	; 0x144 <__vector_33+0x88>
+  fe:	4c c0       	rjmp	.+152    	; 0x198 <__vector_33+0xdc>
+    {
+    /* ── Slave Receive 단계 ── */
+    case TW_SR_SLA_ACK:   // SLA 주소인식
+        /* SLA+W 수신: 버퍼 초기화 후 ACK */
+        rx_len = 0;    // 버퍼 초기화 
+ 100:	10 92 01 01 	sts	0x0101, r1	; 0x800101 <rx_len>
+        TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWIE) | (1 << TWEA);
+ 104:	85 ec       	ldi	r24, 0xC5	; 197
+ 106:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <__TEXT_REGION_LENGTH__+0x7e0074>
+        break;
+ 10a:	49 c0       	rjmp	.+146    	; 0x19e <__vector_33+0xe2>
+
+    case TW_SR_DATA_ACK:     // 데이터 수신 (반복)
+        /* 데이터 1바이트 수신 */
+        if (rx_len < BUF_SIZE) {
+ 10c:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <rx_len>
+ 110:	88 30       	cpi	r24, 0x08	; 8
+ 112:	60 f4       	brcc	.+24     	; 0x12c <__vector_33+0x70>
+            rx_buf[rx_len++] = TWDR;
+ 114:	e0 91 01 01 	lds	r30, 0x0101	; 0x800101 <rx_len>
+ 118:	81 e0       	ldi	r24, 0x01	; 1
+ 11a:	8e 0f       	add	r24, r30
+ 11c:	80 93 01 01 	sts	0x0101, r24	; 0x800101 <rx_len>
+ 120:	f0 e0       	ldi	r31, 0x00	; 0
+ 122:	80 91 73 00 	lds	r24, 0x0073	; 0x800073 <__TEXT_REGION_LENGTH__+0x7e0073>
+ 126:	ee 5f       	subi	r30, 0xFE	; 254
+ 128:	fe 4f       	sbci	r31, 0xFE	; 254
+ 12a:	80 83       	st	Z, r24
+        }
+        TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWIE) | (1 << TWEA);
+ 12c:	85 ec       	ldi	r24, 0xC5	; 197
+ 12e:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <__TEXT_REGION_LENGTH__+0x7e0074>
+        break;
+ 132:	35 c0       	rjmp	.+106    	; 0x19e <__vector_33+0xe2>
+
+    case TW_SR_STOP:   // STOP 감지 (수신 완료)
+        /* STOP 감지: 수신 완료. 다음 요청을 위해 대기 */
+        /* tx_idx를 리셋해서 Read 요청에 처음부터 돌려줄 수 있게 함 */
+        tx_idx = 0;
+ 134:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <__DATA_REGION_ORIGIN__>
+        TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWIE) | (1 << TWEA);   // 읽기 트랜잭션 대기 
+ 138:	85 ec       	ldi	r24, 0xC5	; 197
+ 13a:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <__TEXT_REGION_LENGTH__+0x7e0074>
+        break;
+ 13e:	2f c0       	rjmp	.+94     	; 0x19e <__vector_33+0xe2>
+
+    /* ── Slave Transmit 단계 ── */
+	// 0xA8 --> 0xB8 --> 0xC0 
+    case TW_ST_SLA_ACK:   
+        /* SLA+R 수신: 첫 번째 바이트 준비 */
+        tx_idx = 0;
+ 140:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <__DATA_REGION_ORIGIN__>
+        /* fall through */
+
+    case TW_ST_DATA_ACK:
+        /* ACK를 받았으므로 다음 바이트 전송 */
+        if (tx_idx < rx_len) {
+ 144:	90 91 00 01 	lds	r25, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 148:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <rx_len>
+ 14c:	98 17       	cp	r25, r24
+ 14e:	68 f4       	brcc	.+26     	; 0x16a <__vector_33+0xae>
+            TWDR = rx_buf[tx_idx++];
+ 150:	e0 91 00 01 	lds	r30, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 154:	81 e0       	ldi	r24, 0x01	; 1
+ 156:	8e 0f       	add	r24, r30
+ 158:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 15c:	f0 e0       	ldi	r31, 0x00	; 0
+ 15e:	ee 5f       	subi	r30, 0xFE	; 254
+ 160:	fe 4f       	sbci	r31, 0xFE	; 254
+ 162:	80 81       	ld	r24, Z
+ 164:	80 93 73 00 	sts	0x0073, r24	; 0x800073 <__TEXT_REGION_LENGTH__+0x7e0073>
+ 168:	03 c0       	rjmp	.+6      	; 0x170 <__vector_33+0xb4>
+        } else {
+            TWDR = 0xFF; /* 버퍼 이상: 더미 */
+ 16a:	8f ef       	ldi	r24, 0xFF	; 255
+ 16c:	80 93 73 00 	sts	0x0073, r24	; 0x800073 <__TEXT_REGION_LENGTH__+0x7e0073>
+        }
+        /* 마지막 바이트이면 TWEA=0으로 NACK 준비 */
+        if (tx_idx >= rx_len) {
+ 170:	90 91 00 01 	lds	r25, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 174:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <rx_len>
+ 178:	98 17       	cp	r25, r24
+ 17a:	20 f0       	brcs	.+8      	; 0x184 <__vector_33+0xc8>
+            TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWIE);  // 마지막이면 TWEA=0 (NACK준비)
+ 17c:	85 e8       	ldi	r24, 0x85	; 133
+ 17e:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <__TEXT_REGION_LENGTH__+0x7e0074>
+ 182:	0d c0       	rjmp	.+26     	; 0x19e <__vector_33+0xe2>
+        } else {
+            TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWIE) | (1 << TWEA);  // 아니면 TWEA=1 (계속 ACK) 
+ 184:	85 ec       	ldi	r24, 0xC5	; 197
+ 186:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <__TEXT_REGION_LENGTH__+0x7e0074>
+ 18a:	09 c0       	rjmp	.+18     	; 0x19e <__vector_33+0xe2>
+  tx_idx=1 → 'B' 전송, TWEA=1  → Master ACK  → 0xB8
+  tx_idx=2 → 'C' 전송, TWEA=0  → Master ACK  → 0xC8 ★ 발생!
+                               → Master NACK → 0xC0
+*/
+        /* 전송 완료: 버스 해제, 다음 주소 대기 */
+        tx_idx = 0;
+ 18c:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <__DATA_REGION_ORIGIN__>
+        TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWIE) | (1 << TWEA);
+ 190:	85 ec       	ldi	r24, 0xC5	; 197
+ 192:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <__TEXT_REGION_LENGTH__+0x7e0074>
+        break;
+ 196:	03 c0       	rjmp	.+6      	; 0x19e <__vector_33+0xe2>
+
+    default:
+        /* 에러 복구: TWINT 클리어, ACK 재활성화 */
+        TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWIE) | (1 << TWEA);
+ 198:	85 ec       	ldi	r24, 0xC5	; 197
+ 19a:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <__TEXT_REGION_LENGTH__+0x7e0074>
+        break;
+    }
+}
+ 19e:	ff 91       	pop	r31
+ 1a0:	ef 91       	pop	r30
+ 1a2:	9f 91       	pop	r25
+ 1a4:	8f 91       	pop	r24
+ 1a6:	0f 90       	pop	r0
+ 1a8:	0b be       	out	0x3b, r0	; 59
+ 1aa:	0f 90       	pop	r0
+ 1ac:	0f be       	out	0x3f, r0	; 63
+ 1ae:	0f 90       	pop	r0
+ 1b0:	1f 90       	pop	r1
+ 1b2:	18 95       	reti
+
+000001b4 <main>:
+/* ─────────────────────────────────────────
+ *  main
+ * ───────────────────────────────────────── */
+int main(void)
+{
+    i2c_slave_init();
+ 1b4:	7c df       	rcall	.-264    	; 0xae <i2c_slave_init>
+    sei();  /* 전역 인터럽트 활성화 */
+ 1b6:	78 94       	sei
+ 1b8:	ff cf       	rjmp	.-2      	; 0x1b8 <main+0x4>
+
+000001ba <_exit>:
+ 1ba:	f8 94       	cli
+
+000001bc <__stop_program>:
+ 1bc:	ff cf       	rjmp	.-2      	; 0x1bc <__stop_program>

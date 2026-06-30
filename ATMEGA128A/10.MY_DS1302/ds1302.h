@@ -49,6 +49,4 @@ typedef struct _ds1302
 	uint8_t ampm;    // 1: pm  0: am
 	uint8_t hourmode;   // 0:24 1:12
 	
-} t_ds1302;
-
-t_ds1302  ds1302;  
+} t_ds1302;  

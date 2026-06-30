@@ -13,4 +13,6 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-#endif /* CALC_H_ */a
+void input_calculator(char key);
+
+#endif /* CALC_H_ */

@@ -15,13 +15,13 @@ int main(void)
 {
 	init_uart0();
 	stdout = &OUTPUT;   // printf가 동작 할 수 있도록 stdout을 설정
+	sei();
 	
 	ds1302_main();   //
 	
 	while (1)
 	{
-		dht11_main();
 		_delay_ms(1500);  // DHT11 안정화 시간
-		
+
 	}
 }

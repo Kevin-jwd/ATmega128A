@@ -19,6 +19,8 @@ extern void    UART0_transmit(uint8_t data);
 extern void    init_keypad(void);
 extern uint8_t scan_keypad(void);
 
+extern void input_calculator(char key);
+
 extern void init_queue(void);
 
 void           init_timer0(void);
@@ -39,7 +41,6 @@ ISR(TIMER0_OVF_vect)            // 벡터 번호 17
 		{
 			insert_queue(keypad_data);
 		}
-		
 	}
 }
 
@@ -54,13 +55,13 @@ int main(void)
 	
 	stdout = &OUTPUT;         // printf가 동작 할 수 있도록 stdout을 설정
 	sei();
-	
+
 	while (1)
 	{
 		if(queue_empty() != TRUE)
 		{
 			key_value = read_queue();
-			printf("%c", key_value);
+			printf("key value : %c\n", key_value);
 		}
 	}
 	return 0;

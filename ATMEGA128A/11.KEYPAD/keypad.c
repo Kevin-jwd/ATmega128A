@@ -54,7 +54,7 @@ uint8_t get_button(int row, int column)
 	KEYPAD_PORT = 0xff;
 	KEYPAD_PORT &= ~(1 << 3-column);             // 해당 column에 전류 흘림
 
-	for(int delay = 0;delay < 20;delay++)      // keypad 확인을 위한 delay 0.625us x 20 = 1.25us
+	for(int delay = 0;delay < 1000;delay++)      // keypad 확인을 위한 delay 0.625us x 20 = 1.25us
 		;
 		
 	current_state = ((KEYPAD_PIN & (1 << (row + 4))) >> (row + 4));
@@ -71,6 +71,7 @@ uint8_t get_button(int row, int column)
 	else if(current_state == 1 && prev_state_arr[row][column] == 0)    // 이전에 버튼이 눌려지고 현재 뗀 상태 
 	{
 		prev_state_arr[row][column] = 1;
+		printf("key : %c\n", keypad_char_arr[row][column]);
 		return keypad_char_arr[row][column];
 	}
 	return 0;
