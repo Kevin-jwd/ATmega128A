@@ -40,7 +40,7 @@
 #include <string.h>
 
 /* I2C settings */
-#define SLAVE_ADDRESS     0x60  // 7bit slave address
+#define SLAVE_ADDRESS     0x50  // 7bit slave address
 #define I2C_FREQUENCY 100000UL  // 100kHz
 // TWBR(Two Wire Bit Rate Register) 
 // TWBR = (F_CPU / I2C_FREQUENCY -16) / 2    (분주비 = 1)
@@ -64,7 +64,7 @@
 #define TWSR_MR_SLA_ACK            0x40       // Master가 SLA + R 송신 후 ACK 수신
 #define TWSR_MR_SLA_NACK           0x48       // Master가 SLA + R 송신 후 NACK 수신
 #define TWSR_MR_DATA_ACK           0x50
-#define TWSR_MR_DATA_NACK          0x58
+#define TWSR_MR_DATA_NACK          0x58       // 데이터 수신 후 NACK 송신
 
 /* Slave Receiver */
 //#define TWSR_SR_START              0x60
@@ -117,10 +117,10 @@ void i2c_master_main()
 /* TWI(I2C) Driver */
 void init_i2c(void)
 {
-	printf("i2c init\n");
 	TWSR = 0x00;
 	TWBR = TWBR_VALUE;      // SCL 주파수 결정 register 100kHz
 }
+
 
 void loopback_test(void)
 {
@@ -134,10 +134,10 @@ void loopback_test(void)
 	
 	// 1. start 전송
 	status = i2c_start();
-	printf("i2c+start\n");
+	
 	if(status)
 	{
-		printf("Error : START failed !!!!!\n");
+		printf("Error : START failed !!!!!\n");          // START 조건 전송 실패
 		return;
 	}
 	
@@ -210,72 +210,85 @@ void loopback_test(void)
 
 uint8_t i2c_start()
 {
-	uint8_t st;
 	
 	TWCR = 1 << TWINT | 1 << TWSTA | 1 << TWEN;
 	// TWINT        TWSTA: Start 요청   TWEN: I2C HW 활성화
 	// I2C HW가 동작이 완료될때까지 기다림. 동작이 완료되면 TWINT flag가 1로 set됨
-	while(!(TWCR & (1 << TWINT)));
-	st = TWSR & 0xf8;                       // 7~3bit 까지 값을 취함
+	twi_wait();
+	
+	uint8_t st = TWSR & 0xf8;                       // 7~3bit 까지 값을 취함 (상위 5비트 상태, 하위 2비트 분주)
 	
 	return (st == TWSR_MT_START) ? 0 : st;  // 성공이면 0, 아니라면 에러 상태 코드 반환
 }
 
-/* SLAVE_ADDR + R/W */
+/* 공통 대기: TWINT 세트 대기 */
+// TWI 하드웨어가 동작 완료하면 TWINT 플래그를 1로 세트
+// 소프트웨어는 이것을 폴링하며 대기, TWCR에 TWINT = 1 을 쓰면 clear됨
+static void twi_wait(void)
+{
+	while(!(TWCR & (1 << TWINT)));
+}
+
+/* SLAVE_ADDR + R/W 전송 */
 uint8_t i2c_slave_addr_send(uint8_t addr_rw)
 {
+	// 전송 전 : TWINT 플래그 1 
+	// 전송 시작 신호 : TWCR = 1 << TWINT (트리거로 알아듣고 전송 시작과 동시에 TWINT 플래그를 0으로 clear) 
+	// 전송 중 : TWINT 플래그 0 (twi_wait()가 이때 대기)
+	// 전송 완료 : TWINT 플래그 1 (HW가 자동으로 1으로 값을 올리면서 twi_wait() 탈출)
 	uint8_t st;
 	
 	TWDR = addr_rw;
 	TWCR = 1 << TWINT | 1 << TWEN;
 	//         TWINT         TWEN: I2C HW 활성화
+	// TWINT 플래그 1로 set하면 HW적으로는 0으로 클리어 => 동작 시작 신호로 받아들임
+	
 	// I2C HW가 동작이 완료될때까지 기다림. 동작이 완료되면 TWINT flag가 1로 set됨
-	while(!(TWCR & (1 << TWINT)));
+	// 전송이 완료되면 하드웨어가 다시 TWINT 플래그를 세워(1로 만듦) twi_wait() 루프를 탈출하게 됩니다.
+	twi_wait();
 	st = TWSR & 0xf8;                       // 7~3bit 까지 값을 취함
 	
 	return st;
 }
 
-uint8_t i2c_stop(void)
-{
-	uint8_t st;
-	
+/* STOP 조건 */
+void i2c_stop(void)
+{	
 	TWCR = 1 << TWINT | 1 << TWSTO | 1 << TWEN;
 	// STOP 후 TWINT clear되기까지 대기
-	_delay_ms(10);
-
+	_delay_us(10);
 }
 
+/* 데이터 바이트 전송 */
 uint8_t i2c_data_write(uint8_t data)
-{
-	uint8_t st;
-		
+{		
 	TWDR = data;
 	TWCR = 1 << TWINT | 1 << TWEN;
 	//         TWINT         TWEN: I2C HW 활성화
 	// I2C HW가 동작이 완료될때까지 기다림. 동작이 완료되면 TWINT flag가 1로 set됨
-	while(!(TWCR & (1 << TWINT)));
+	twi_wait();
 		
-	return (TWSR & 0xf8);
+	return (TWSR & 0xf8);          // 0b1111 1000
 }
 
-
+/* 데이터 바이트 수신 -> ACK 전송 */
 uint8_t i2c_data_read_acksend()
 {
 	TWCR = 1 << TWINT | 1 << TWEN | 1 << TWEA;        // TWEA = 1; ACK 자동 전송
 	//         TWINT         TWEN: I2C HW 활성화
 	// I2C HW가 동작이 완료될때까지 기다림. 동작이 완료되면 TWINT flag가 1로 set됨
-	while(!(TWCR & (1 << TWINT)));
+	twi_wait();
 	
 	return TWDR;
 }
 
+/* 데이터 바이트 수신 -> NACK 전송 (Slave에게 종료 알림) */
 uint8_t i2c_data_read_nacksend()
 {
 	TWCR = 1 << TWINT | 1 << TWEN;                     // TWEA = 0; NACK 자동 전송
 	//         TWINT         TWEN: I2C HW 활성화
 	// I2C HW가 동작이 완료될때까지 기다림. 동작이 완료되면 TWINT flag가 1로 set됨
-	while(!(TWCR & (1 << TWINT)));
+	twi_wait();
 	
 	return TWDR;
 }

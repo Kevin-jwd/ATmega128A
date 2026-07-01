@@ -81,6 +81,8 @@ TWEN  : TWI Enable  I2C 하드웨어 활성화
 TWIE  : 인터럽트Enable TWI 인터럽트 활성화
 */
 
+uint8_t time_register_data[5] = { 0 };
+
 int i2c_master_main(void); 
 
 /* ─────────────────────────────────────────
@@ -152,6 +154,59 @@ uint8_t i2c_read_nack(void)
     twi_wait();
     return TWDR;
 }
+
+void read_time()
+{
+	printf("inside read_time function\n");          // O
+	char tx_msg[] = "ABC";
+	char rx_buff[4] = { 0 };
+	uint8_t status;
+	
+	// ================ PHASE 1 ==================
+	// ========== Master --> Slave 전송 ==========
+	// ===========================================
+	
+	// 1. start 전송
+	status = i2c_start();
+	printf("i2c_start completed\n");
+	if(status)
+	{
+		printf("Error : START failed !!!!!\n");          // START 조건 전송 실패
+		return;
+	}
+	
+	// 2. SLAVE_ADDR + R 전송
+	// Master -> Slave 읽을 주소 설정
+	status = i2c_slave_addr_send((SLAVE_ADDR << 1) | 1);     // SLA + R
+	
+	if(status != TWSR_MR_SLA_ACK)
+	{
+		printf("Error : SLA + Not ACK !!!!!\n");
+		printf("Status code : %x", status);
+		i2c_stop();
+		return;
+	}
+	
+	// 3. read DATA
+	for(int i = 0;i < 5-1;i++)
+	{
+		time_register_data[i] = i2c_read_ack();
+	}
+	time_register_data[5] = i2c_read_nack();
+	
+	// 4. STOP signal
+	i2c_stop();
+	
+	// 5. 대기
+	_delay_ms(5);          // Slave 대기 시간
+	
+	// ================ 결과 출력 ================
+	for(int i = 0;i < 5;i++)
+	{
+		printf("time_register_data[%d] : %d\n", i, time_register_data[i]);
+	}
+}
+
 // 수신중: Master--> Slave에게 ACK --> 다음 Byte 계속 보내
 // 마지막: Master--> Slave에게 NACK --> "여기서 끝, 버스 놓아줘" 
 /* ─────────────────────────────────────────
