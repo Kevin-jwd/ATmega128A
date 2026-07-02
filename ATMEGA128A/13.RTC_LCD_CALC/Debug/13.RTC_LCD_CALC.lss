@@ -580,10 +580,8 @@ void read_time()
  27e:	df 91       	pop	r29
  280:	cf 91       	pop	r28
 	
-	//// ================ 결과 출력 ================
-	//printf("%d.%d.%d\t%d:%d:%d\n", timekeeper_register_data[0], timekeeper_register_data[1],
-	//timekeeper_register_data[2], timekeeper_register_data[4],
-	//timekeeper_register_data[5], timekeeper_register_data[6]);
+	// 5. 대기
+	_delay_ms(5);          // Slave 대기 시간
 }
  282:	08 95       	ret
 
